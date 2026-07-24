@@ -8,866 +8,985 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --navy:#080d1a;
-    --navy-dark:#050810;
-    --navy-card:#0d2630;
-    --teal:#1B93A6;
-    --teal-dark:#12798a;
-    --teal-light:#7DD8E2;
-    --ink:#0f1720;
-    --slate:#4c5a6b;
-    --slate-light:#7c8a99;
-    --bg-soft:#f6f8fa;
-    --border:#e3e8ee;
-    --red:#b3261e;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-    color:var(--ink);
-    background:#fff;
-    line-height:1.6;
-  }
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
-  .wrap-narrow{max-width:820px;margin:0 auto;padding:0 24px;}
-  section{padding:96px 0;}
-  h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-0.01em;margin:0;}
-  h2{font-size:2.3rem;line-height:1.2;}
-  em{font-style:italic;color:var(--teal-light);}
-  .light em{color:var(--teal-dark);}
-  .eyebrow{color:var(--teal-dark);font-weight:700;text-transform:uppercase;font-size:.76rem;letter-spacing:.14em;display:block;margin-bottom:14px;}
-  .eyebrow.on-dark{color:var(--teal-light);}
-  .rule{width:52px;height:3px;background:var(--teal);border-radius:2px;margin:18px 0 0;}
-  .rule.center{margin-left:auto;margin-right:auto;}
-  .sub{color:var(--slate);max-width:640px;font-size:1.04rem;}
-  .center-block{text-align:center;}
-  .center-block .sub{margin:16px auto 0;}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:4px;font-weight:700;font-size:.92rem;letter-spacing:.02em;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease;font-family:'DM Sans',sans-serif;}
-  .btn-primary{background:var(--teal);color:#fff;}
-  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px);}
-  .btn-outline-dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
-  .btn-outline-dark:hover{border-color:#fff;background:rgba(255,255,255,.06);}
-  .btn-outline-light{background:transparent;color:var(--teal-dark);border-color:var(--teal-dark);}
-  .btn-outline-light:hover{background:rgba(18,121,138,.06);}
+:root{
+--navy:#080d1a;
+--navy-dark:#050810;
+--navy-card:#0d2630;
+--teal:#1B93A6;
+--teal-dark:#12798a;
+--teal-light:#7DD8E2;
+--ink:#0f1720;
+--slate:#4c5a6b;
+--slate-light:#7c8a99;
+--bg-soft:#f6f8fa;
+--border:#e3e8ee;
+--red:#b3261e;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+color:var(--ink);
+background:#fff;
+line-height:1.6;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+.wrap-narrow{max-width:820px;margin:0 auto;padding:0 24px;}
+section{padding:96px 0;}
+h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-0.01em;margin:0;}
+h2{font-size:2.3rem;line-height:1.2;}
+em{font-style:italic;color:var(--teal-light);}
+.light em{color:var(--teal-dark);}
+.eyebrow{color:var(--teal-dark);font-weight:700;text-transform:uppercase;font-size:.76rem;letter-spacing:.14em;display:block;margin-bottom:14px;}
+.eyebrow.on-dark{color:var(--teal-light);}
+.rule{width:52px;height:3px;background:var(--teal);border-radius:2px;margin:18px 0 0;}
+.rule.center{margin-left:auto;margin-right:auto;}
+.sub{color:var(--slate);max-width:640px;font-size:1.04rem;}
+.center-block{text-align:center;}
+.center-block .sub{margin:16px auto 0;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:4px;font-weight:700;font-size:.92rem;letter-spacing:.02em;border:1.5px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease;font-family:'DM Sans',sans-serif;}
+.btn-primary{background:var(--teal);color:#fff;}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px);}
+.btn-outline-dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
+.btn-outline-dark:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+.btn-outline-light{background:transparent;color:var(--teal-dark);border-color:var(--teal-dark);}
+.btn-outline-light:hover{background:rgba(18,121,138,.06);}
 
-  /* NAV */
-  header{position:sticky;top:0;z-index:50;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);}
-  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1rem;color:#fff;}
-  .mark{width:38px;height:38px;border-radius:8px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;}
-  .brand-sub{font-weight:400;color:#8ea3ad;}
-  .navlinks{display:flex;gap:32px;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#c3ced8;}
-  .navlinks a:hover{color:var(--teal-light);}
-  @media (max-width:820px){.navlinks{display:none;}}
+/* NAV */
+header{position:sticky;top:0;z-index:50;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1rem;color:#fff;}
+.mark{width:38px;height:38px;border-radius:8px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;}
+.brand-sub{font-weight:400;color:#8ea3ad;}
+.navlinks{display:flex;gap:32px;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#c3ced8;}
+.navlinks a:hover{color:var(--teal-light);}
+@media (max-width:820px){.navlinks{display:none;}}
 
-  /* HERO */
-  .hero{background:var(--navy);color:#fff;padding:110px 0 70px;position:relative;overflow:hidden;}
-  .hero::after{content:"";position:absolute;right:-120px;top:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(27,147,166,.18),transparent 70%);}
-  .hero .inner{position:relative;max-width:720px;}
-  .advisor-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:6px 16px 6px 6px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:28px;color:#dbe4ea;}
-  .advisor-tag img{width:28px;height:28px;border-radius:999px;object-fit:cover;}
-  .hero h1{font-size:3.1rem;line-height:1.14;color:#fff;}
-  .hero .sub{color:#aebccb;margin:22px 0 34px;max-width:560px;font-size:1.08rem;}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
-  .hero-note{margin:22px 0 0;font-size:.86rem;color:#7f93a3;}
-  @media (max-width:640px){.hero h1{font-size:2.2rem;}}
-  .hero-stats{display:flex;gap:44px;margin-top:56px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:32px;}
-  .hero-stat-num{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--teal-light);line-height:1;}
-  .hero-stat-label{font-size:.78rem;color:#8ea3ad;font-weight:600;margin-top:8px;text-transform:uppercase;letter-spacing:.05em;}
+/* HERO */
+.hero{background:var(--navy);color:#fff;padding:110px 0 70px;position:relative;overflow:hidden;}
+.hero::after{content:"";position:absolute;right:-120px;top:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(27,147,166,.18),transparent 70%);}
+.hero .inner{position:relative;max-width:720px;}
+.advisor-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:6px 16px 6px 6px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:28px;color:#dbe4ea;}
+.advisor-tag img{width:28px;height:28px;border-radius:999px;object-fit:cover;}
+.hero h1{font-size:3.1rem;line-height:1.14;color:#fff;}
+.hero .sub{color:#aebccb;margin:22px 0 34px;max-width:560px;font-size:1.08rem;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.hero-note{margin:22px 0 0;font-size:.86rem;color:#7f93a3;}
+@media (max-width:640px){.hero h1{font-size:2.2rem;}}
+.hero-stats{display:flex;gap:44px;margin-top:56px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:32px;}
+.hero-stat-num{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--teal-light);line-height:1;}
+.hero-stat-label{font-size:.78rem;color:#8ea3ad;font-weight:600;margin-top:8px;text-transform:uppercase;letter-spacing:.05em;}
 
-  /* TRUST INTRO / ABOUT (moved up) */
-  .trust-intro{background:#fff;}
-  .trust-grid{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;margin-top:0;}
-  .trust-grid img{border-radius:6px;width:100%;object-fit:cover;aspect-ratio:1/1;}
-  .trust-grid .role{color:var(--teal-dark);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:10px;}
-  .trust-grid h3{font-size:1.7rem;margin-bottom:14px;}
-  .trust-grid p{color:var(--slate);margin:0 0 14px;font-size:1rem;}
-  .pillars{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
-  .pill{background:var(--bg-soft);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-size:.8rem;font-weight:700;color:var(--teal-dark);}
-  @media (max-width:760px){.trust-grid{grid-template-columns:1fr;}.trust-grid img{max-width:200px;margin:0 auto;}}
+/* TRUST INTRO / ABOUT (moved up) */
+.trust-intro{background:#fff;}
+.trust-grid{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;margin-top:0;}
+.trust-grid img{border-radius:6px;width:100%;object-fit:cover;aspect-ratio:1/1;}
+.trust-grid .role{color:var(--teal-dark);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:10px;}
+.trust-grid h3{font-size:1.7rem;margin-bottom:14px;}
+.trust-grid p{color:var(--slate);margin:0 0 14px;font-size:1rem;}
+.pillars{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.pill{background:var(--bg-soft);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-size:.8rem;font-weight:700;color:var(--teal-dark);}
+@media (max-width:760px){.trust-grid{grid-template-columns:1fr;}.trust-grid img{max-width:200px;margin:0 auto;}}
 
-  /* PROGRAMS — row list, not icon grid */
-  .section-soft{background:var(--bg-soft);}
-  .program-list{margin-top:50px;border-top:1px solid var(--border);}
-  .program-row{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:32px 0;border-bottom:1px solid var(--border);align-items:start;}
-  .program-row:hover{background:rgba(27,147,166,.04);}
-  .program-num{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--teal-dark);}
-  .program-row h3{font-size:1.25rem;margin-bottom:8px;color:var(--ink);}
-  .program-row p{color:var(--slate);margin:0;font-size:.98rem;max-width:640px;}
-  @media (max-width:600px){.program-row{grid-template-columns:1fr;gap:8px;}}
+/* PROGRAMS — row list, not icon grid */
+.section-soft{background:var(--bg-soft);}
+.program-list{margin-top:50px;border-top:1px solid var(--border);}
+.program-row{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:32px 0;border-bottom:1px solid var(--border);align-items:start;}
+.program-row:hover{background:rgba(27,147,166,.04);}
+.program-num{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--teal-dark);}
+.program-row h3{font-size:1.25rem;margin-bottom:8px;color:var(--ink);}
+.program-row p{color:var(--slate);margin:0;font-size:.98rem;max-width:640px;}
+@media (max-width:600px){.program-row{grid-template-columns:1fr;gap:8px;}}
 
-  /* MIDDLE MARKET — dark tier stack, matches card system */
-  .mm-section{background:var(--navy);color:#fff;}
-  .mm-section h2{color:#fff;}
-  .mm-section .sub{color:#aebccb;}
-  .quote-block{background:var(--navy-card);border-left:4px solid var(--teal);border-radius:0 8px 8px 0;padding:26px 30px;margin:40px 0 48px;max-width:720px;}
-  .quote-label{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-light);margin-bottom:10px;}
-  .quote-text{font-family:'DM Serif Display',serif;font-size:1.35rem;line-height:1.4;color:#fff;}
-  .tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
-  .tier{border-radius:8px;padding:30px 28px;}
-  .tier-bank{background:#12161f;border:1px solid rgba(255,255,255,.08);}
-  .tier-bank .tier-label{color:#8ea3ad;}
-  .tier-mm{background:var(--teal);position:relative;}
-  .tier-badge{display:inline-block;background:rgba(255,255,255,.22);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:12px;}
-  .tier-hm{background:#22131a;border:1px solid rgba(255,255,255,.08);}
-  .tier-hm .tier-label{color:#e19aa3;}
-  .tier-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px;}
-  .tier h4{font-family:'DM Sans',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:10px;}
-  .tier .rate{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:12px;}
-  .tier-hm .rate{color:#ff8a93;}
-  .tier p{color:#dfe9ec;font-size:.92rem;line-height:1.55;margin:0;}
-  .tier-bank p{color:#b7c2cc;}
-  .tier-hm p{color:#dab4b8;}
-  @media (max-width:820px){.tiers{grid-template-columns:1fr;}}
+/* MIDDLE MARKET — dark tier stack, matches card system */
+.mm-section{background:var(--navy);color:#fff;}
+.mm-section h2{color:#fff;}
+.mm-section .sub{color:#aebccb;}
+.quote-block{background:var(--navy-card);border-left:4px solid var(--teal);border-radius:0 8px 8px 0;padding:26px 30px;margin:40px 0 48px;max-width:720px;}
+.quote-label{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-light);margin-bottom:10px;}
+.quote-text{font-family:'DM Serif Display',serif;font-size:1.35rem;line-height:1.4;color:#fff;}
+.tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.tier{border-radius:8px;padding:30px 28px;}
+.tier-bank{background:#12161f;border:1px solid rgba(255,255,255,.08);}
+.tier-bank .tier-label{color:#8ea3ad;}
+.tier-mm{background:var(--teal);position:relative;}
+.tier-badge{display:inline-block;background:rgba(255,255,255,.22);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:12px;}
+.tier-hm{background:#22131a;border:1px solid rgba(255,255,255,.08);}
+.tier-hm .tier-label{color:#e19aa3;}
+.tier-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px;}
+.tier h4{font-family:'DM Sans',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:10px;}
+.tier .rate{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:12px;}
+.tier-hm .rate{color:#ff8a93;}
+.tier p{color:#dfe9ec;font-size:.92rem;line-height:1.55;margin:0;}
+.tier-bank p{color:#b7c2cc;}
+.tier-hm p{color:#dab4b8;}
+@media (max-width:820px){.tiers{grid-template-columns:1fr;}}
 
-  /* WHY M&M — trust grid */
-  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;}
-  .why-card{border:1px solid var(--border);border-radius:6px;padding:28px 24px;background:#fff;border-top:3px solid var(--teal);}
-  .why-num{font-family:'DM Serif Display',serif;color:var(--teal-dark);font-size:1.1rem;margin-bottom:14px;}
-  .why-card h3{font-size:1.05rem;font-family:'DM Sans',sans-serif;font-weight:800;margin-bottom:10px;color:var(--ink);}
-  .why-card p{color:var(--slate);font-size:.9rem;margin:0;}
-  @media (max-width:900px){.why-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:560px){.why-grid{grid-template-columns:1fr;}}
+/* WHY M&M — trust grid */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;}
+.why-card{border:1px solid var(--border);border-radius:6px;padding:28px 24px;background:#fff;border-top:3px solid var(--teal);}
+.why-num{font-family:'DM Serif Display',serif;color:var(--teal-dark);font-size:1.1rem;margin-bottom:14px;}
+.why-card h3{font-size:1.05rem;font-family:'DM Sans',sans-serif;font-weight:800;margin-bottom:10px;color:var(--ink);}
+.why-card p{color:var(--slate);font-size:.9rem;margin:0;}
+@media (max-width:900px){.why-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.why-grid{grid-template-columns:1fr;}}
 
-  /* PROCESS */
-  .steps{display:flex;gap:0;margin-top:50px;flex-wrap:wrap;position:relative;}
-  .step{flex:1;min-width:200px;text-align:left;padding-right:24px;position:relative;}
-  .step:not(:last-child)::after{content:"";position:absolute;top:26px;right:0;width:24px;height:1px;background:var(--border);display:none;}
-  @media (min-width:820px){.step:not(:last-child)::after{display:block;}}
-  .step .num{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--teal);color:var(--teal-dark);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:18px;}
-  .step h4{font-size:1.05rem;margin-bottom:8px;font-family:'DM Sans',sans-serif;font-weight:800;}
-  .step p{color:var(--slate);font-size:.9rem;margin:0;}
+/* PROCESS */
+.steps{display:flex;gap:0;margin-top:50px;flex-wrap:wrap;position:relative;}
+.step{flex:1;min-width:200px;text-align:left;padding-right:24px;position:relative;}
+.step:not(:last-child)::after{content:"";position:absolute;top:26px;right:0;width:24px;height:1px;background:var(--border);display:none;}
+@media (min-width:820px){.step:not(:last-child)::after{display:block;}}
+.step .num{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--teal);color:var(--teal-dark);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:18px;}
+.step h4{font-size:1.05rem;margin-bottom:8px;font-family:'DM Sans',sans-serif;font-weight:800;}
+.step p{color:var(--slate);font-size:.9rem;margin:0;}
 
-  /* FAQ — editorial list, no boxes */
-  .faq-list{margin-top:44px;border-top:1px solid var(--border);}
-  .faq-item{border-bottom:1px solid var(--border);padding:26px 0;}
-  .faq-item summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:1.02rem;}
-  .faq-item summary::-webkit-details-marker{display:none;}
-  .faq-item summary::after{content:"+";font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--teal-dark);flex-shrink:0;}
-  .faq-item[open] summary::after{content:"–";}
-  .faq-item p{color:var(--slate);margin:14px 0 0;font-size:.96rem;max-width:680px;}
+/* FAQ — editorial list, no boxes */
+.faq-list{margin-top:44px;border-top:1px solid var(--border);}
+.faq-item{border-bottom:1px solid var(--border);padding:26px 0;}
+.faq-item summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:1.02rem;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+";font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--teal-dark);flex-shrink:0;}
+.faq-item[open] summary::after{content:"–";}
+.faq-item p{color:var(--slate);margin:14px 0 0;font-size:.96rem;max-width:680px;}
 
-  /* APPLY / FORM */
-  .apply-section{background:var(--navy);color:#fff;}
-  .apply-section .eyebrow{color:var(--teal-light);}
-  .apply-section h2{color:#fff;}
-  .apply-section .sub{color:#aebccb;}
-  .talk-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:30px;padding:20px 26px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:6px;max-width:640px;margin-left:auto;margin-right:auto;}
-  .talk-row span{color:#c3ced8;font-size:.92rem;}
-  .form-wrap{max-width:760px;margin:40px auto 0;background:#fff;border-radius:8px;overflow:hidden;padding:40px;text-align:left;color:var(--ink);}
-  .form-section{background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:16px;}
-  .form-section-title{font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:18px;}
-  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .field-grid.single{grid-template-columns:1fr;}
-  .field-grid.triple{grid-template-columns:1fr 1fr 1fr;}
-  .field{display:flex;flex-direction:column;gap:6px;}
-  .field label{font-size:.82rem;font-weight:600;color:var(--slate);line-height:1.4;}
-  .field input,.field select,.field textarea{
-    background:#fff;border:1px solid var(--border);border-radius:5px;padding:10px 12px;
-    font-size:.9rem;color:var(--ink);font-family:inherit;width:100%;transition:border-color .2s;
-  }
-  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
-  .field textarea{resize:vertical;min-height:80px;}
-  .money-input{position:relative;}
-  .money-input input{padding-left:26px;}
-  .money-symbol{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--slate-light);font-size:.9rem;pointer-events:none;}
-  .upload-area{background:#fff;border:1px dashed var(--border);border-radius:5px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s;}
-  .upload-area:hover{border-color:var(--teal);}
-  .upload-area input[type="file"]{display:none;}
-  .upload-label{font-size:.8rem;color:var(--slate-light);cursor:pointer;}
-  .upload-label span{color:var(--teal-dark);font-weight:600;}
-  .file-name{font-size:.8rem;color:#15803d;margin-top:6px;display:none;}
-  .conditional-field{display:none;}
-  .conditional-field.show{display:flex;}
-  .consent-row{display:flex;align-items:flex-start;gap:10px;margin:6px 0 4px;}
-  .consent-row input{width:auto;margin-top:3px;}
-  .consent-row label{font-size:.82rem;color:var(--slate);font-weight:400;}
-  .submit-section{text-align:center;margin-top:8px;}
-  .submit-btn{width:100%;max-width:420px;justify-content:center;}
-  .submit-btn:disabled{background:var(--border);color:var(--slate-light);cursor:not-allowed;transform:none;}
-  .form-disclaimer{font-size:.78rem;color:var(--slate-light);text-align:center;margin-top:12px;line-height:1.6;}
-  .error-banner{display:none;background:rgba(179,38,30,.08);border:1px solid rgba(179,38,30,.3);color:var(--red);font-size:.86rem;border-radius:5px;padding:12px 16px;margin-top:16px;line-height:1.5;}
-  .success-box{display:none;text-align:center;padding:20px 0;}
-  .success-box .check{font-size:2.4rem;color:#15803d;margin-bottom:10px;}
-  .success-box h3{color:#15803d;margin-bottom:8px;font-family:'DM Sans',sans-serif;font-weight:800;}
-  .success-box p{color:var(--slate);margin:0;}
-  @media (max-width:600px){.field-grid,.field-grid.triple{grid-template-columns:1fr;}.form-wrap{padding:22px;}}
+/* APPLY / FORM */
+.apply-section{background:var(--navy);color:#fff;}
+.apply-section .eyebrow{color:var(--teal-light);}
+.apply-section h2{color:#fff;}
+.apply-section .sub{color:#aebccb;}
+.talk-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:30px;padding:20px 26px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:6px;max-width:640px;margin-left:auto;margin-right:auto;}
+.talk-row span{color:#c3ced8;font-size:.92rem;}
+.form-wrap{max-width:760px;margin:40px auto 0;background:#fff;border-radius:8px;overflow:hidden;padding:40px;text-align:left;color:var(--ink);}
+.form-section{background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:16px;}
+.form-section-title{font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:18px;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field-grid.single{grid-template-columns:1fr;}
+.field-grid.triple{grid-template-columns:1fr 1fr 1fr;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:.82rem;font-weight:600;color:var(--slate);line-height:1.4;}
+.field input,.field select,.field textarea{
+background:#fff;border:1px solid var(--border);border-radius:5px;padding:10px 12px;
+font-size:.9rem;color:var(--ink);font-family:inherit;width:100%;transition:border-color .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+.field textarea{resize:vertical;min-height:80px;}
+.money-input{position:relative;}
+.money-input input{padding-left:26px;}
+.money-symbol{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--slate-light);font-size:.9rem;pointer-events:none;}
+.upload-area{background:#fff;border:1px dashed var(--border);border-radius:5px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s;}
+.upload-area:hover{border-color:var(--teal);}
+.upload-area input[type="file"]{display:none;}
+.upload-label{font-size:.8rem;color:var(--slate-light);cursor:pointer;}
+.upload-label span{color:var(--teal-dark);font-weight:600;}
+.file-name{font-size:.8rem;color:#15803d;margin-top:6px;display:none;}
+.conditional-field{display:none;}
+.conditional-field.show{display:flex;}
+.conditional-grid{display:none;}
+.conditional-grid.show{display:grid;}
+.hp-field{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;}
+.consent-row{display:flex;align-items:flex-start;gap:10px;margin:6px 0 4px;}
+.consent-row input{width:auto;margin-top:3px;}
+.consent-row label{font-size:.82rem;color:var(--slate);font-weight:400;}
+.submit-section{text-align:center;margin-top:8px;}
+.submit-btn{width:100%;max-width:420px;justify-content:center;}
+.submit-btn:disabled{background:var(--border);color:var(--slate-light);cursor:not-allowed;transform:none;}
+.form-disclaimer{font-size:.78rem;color:var(--slate-light);text-align:center;margin-top:12px;line-height:1.6;}
+.error-banner{display:none;background:rgba(179,38,30,.08);border:1px solid rgba(179,38,30,.3);color:var(--red);font-size:.86rem;border-radius:5px;padding:12px 16px;margin-top:16px;line-height:1.5;}
+.success-box{display:none;text-align:center;padding:20px 0;}
+.success-box .check{font-size:2.4rem;color:#15803d;margin-bottom:10px;}
+.success-box h3{color:#15803d;margin-bottom:8px;font-family:'DM Sans',sans-serif;font-weight:800;}
+.success-box p{color:var(--slate);margin:0;}
+@media (max-width:600px){.field-grid,.field-grid.triple{grid-template-columns:1fr;}.form-wrap{padding:22px;}}
 
-  footer{background:var(--navy-dark);color:#93a3b0;padding:56px 0 28px;border-top:1px solid rgba(255,255,255,.08);}
-  .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;margin-bottom:36px;}
-  .footer-top h4{color:#fff;margin-bottom:12px;font-family:'DM Sans',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;}
-  .footer-top a{color:#9db3c2;}
-  .footer-top a:hover{color:var(--teal-light);}
-  .foot-links{display:flex;flex-direction:column;gap:9px;font-size:.9rem;}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;font-size:.8rem;color:#647685;text-align:center;}
+footer{background:var(--navy-dark);color:#93a3b0;padding:56px 0 28px;border-top:1px solid rgba(255,255,255,.08);}
+.footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;margin-bottom:36px;}
+.footer-top h4{color:#fff;margin-bottom:12px;font-family:'DM Sans',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;}
+.footer-top a{color:#9db3c2;}
+.footer-top a:hover{color:var(--teal-light);}
+.foot-links{display:flex;flex-direction:column;gap:9px;font-size:.9rem;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;font-size:.8rem;color:#647685;text-align:center;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap">
-    <nav>
-      <div class="brand"><div class="mark">M&amp;M</div> Daniel Touchatt <span class="brand-sub">| Maple and Millwood Consultants</span></div>
-      <div class="navlinks">
-        <a href="#programs">Programs</a>
-        <a href="#middle-market">Middle Market</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <a href="#apply" class="btn btn-primary">Apply Now</a>
-    </nav>
-  </div>
+<div class="wrap">
+<nav>
+<div class="brand"><div class="mark">M&amp;M</div> Daniel Touchatt <span class="brand-sub">| Maple and Millwood Consultants</span></div>
+<div class="navlinks">
+<a href="#programs">Programs</a>
+<a href="#middle-market">Middle Market</a>
+<a href="#about">About</a>
+<a href="#faq">FAQ</a>
+</div>
+<a href="#apply" class="btn btn-primary">Apply Now</a>
+</nav>
+</div>
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div class="inner">
-      <div class="advisor-tag">
-        <img src="https://vibe.filesafe.space/1776087403217642126/attachments/7565b54a-4f97-4e62-81a3-6f2ed67c84e7.jpg" alt="Daniel Touchatt">
-        Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
-      </div>
-      <h1>Capital solutions that <em>scale your business.</em></h1>
-      <p class="sub">We're not a rate sheet lender, and we're not one-solution-fits-all. As your direct advisor, I build tailored capital solutions for what your business actually needs to grow.</p>
-      <div class="hero-ctas">
-        <a href="#apply" class="btn btn-primary">Submit Your Deal →</a>
-        <a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" class="btn btn-outline-dark" target="_blank" rel="noopener">Book a 15-Min Call</a>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">$75K</div><div class="hero-stat-label">Minimum Loan Size</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">$15M+</div><div class="hero-stat-label">Maximum Loan Size</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">660+</div><div class="hero-stat-label">Min Credit Score</div></div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="inner">
+<div class="advisor-tag">
+<img src="https://vibe.filesafe.space/1776087403217642126/attachments/7565b54a-4f97-4e62-81a3-6f2ed67c84e7.jpg" alt="Daniel Touchatt">
+Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
+</div>
+<h1>Capital solutions that <em>scale your business.</em></h1>
+<p class="sub">We're not a rate sheet lender, and we're not one-solution-fits-all. As your direct advisor, I build tailored capital solutions for what your business actually needs to grow.</p>
+<div class="hero-ctas">
+<a href="#apply" class="btn btn-primary">Submit Your Deal →</a>
+<a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" class="btn btn-outline-dark" target="_blank" rel="noopener">Book a 15-Min Call</a>
+</div>
+</div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-num">$75K</div><div class="hero-stat-label">Minimum Loan Size</div></div>
+<div class="hero-stat"><div class="hero-stat-num">$15M+</div><div class="hero-stat-label">Maximum Loan Size</div></div>
+<div class="hero-stat"><div class="hero-stat-num">660+</div><div class="hero-stat-label">Min Credit Score</div></div>
+</div>
+</div>
 </section>
 
 <section class="trust-intro" id="about">
-  <div class="wrap">
-    <div class="trust-grid">
-      <img src="https://vibe.filesafe.space/1776087403217642126/attachments/7565b54a-4f97-4e62-81a3-6f2ed67c84e7.jpg" alt="Daniel Touchatt, Capital Advisor at Maple and Millwood Consultants">
-      <div>
-        <span class="role">Your Advisor</span>
-        <h3>Daniel Touchatt</h3>
-        <p>Daniel is a values-driven connector and protector who brings sharp creative instincts and an ownership mindset to every deal. With a background in marketing, real estate, and media production — including commercial/residential marketing and MMA fight commentary — he knows how to communicate trust and credibility across every platform.</p>
-        <p>He played a key role in launching Wichita's first Charity Fight Night, and was named Pitcher of the Year in college — the same mix of grit and discipline he brings to underwriting your deal. Daniel's life revolves around God, his wife, and their newborn son, and he leads with the conviction to serve and protect what matters most. Outside of work, you'll find him training Muay Thai, hiking, or wakeboarding — he believes excellence starts with extreme ownership, and shows up with that mindset on every file he touches.</p>
-        <div class="pillars">
-          <span class="pill">Relationship-driven</span>
-          <span class="pill">Personal, not transactional</span>
-          <span class="pill">Flexible deal structuring</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="trust-grid">
+<img src="https://vibe.filesafe.space/1776087403217642126/attachments/7565b54a-4f97-4e62-81a3-6f2ed67c84e7.jpg" alt="Daniel Touchatt, Capital Advisor at Maple and Millwood Consultants">
+<div>
+<span class="role">Your Advisor</span>
+<h3>Daniel Touchatt</h3>
+<p>Daniel is a values-driven connector and protector who brings sharp creative instincts and an ownership mindset to every deal. With a background in marketing, real estate, and media production — including commercial/residential marketing and MMA fight commentary — he knows how to communicate trust and credibility across every platform.</p>
+<p>He played a key role in launching Wichita's first Charity Fight Night, and was named Pitcher of the Year in college — the same mix of grit and discipline he brings to underwriting your deal. Daniel's life revolves around God, his wife, and their newborn son, and he leads with the conviction to serve and protect what matters most. Outside of work, you'll find him training Muay Thai, hiking, or wakeboarding — he believes excellence starts with extreme ownership, and shows up with that mindset on every file he touches.</p>
+<div class="pillars">
+<span class="pill">Relationship-driven</span>
+<span class="pill">Personal, not transactional</span>
+<span class="pill">Flexible deal structuring</span>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section class="section-soft" id="programs">
-  <div class="wrap">
-    <span class="eyebrow">Loan Programs</span>
-    <h2>Loans designed for investors.</h2>
-    <p class="sub">Flexible financing tailored to your deal — residential, commercial, and everything in between. $75K–$15M+.</p>
-    <div class="program-list">
-      <div class="program-row">
-        <div class="program-num">01</div>
-        <div><h3>Fix &amp; Flip</h3><p>Renovation loans tailored to your project. We start by asking what matters more right now — cost of capital or cash out of pocket at close — and tailor your options around the answer.</p></div>
-      </div>
-      <div class="program-row">
-        <div class="program-num">02</div>
-        <div><h3>Bridge Loans</h3><p>1–3 year acquisitions and refinances — get out of hard money, or pull equity from a finished flip to redeploy immediately.</p></div>
-      </div>
-      <div class="program-row">
-        <div class="program-num">03</div>
-        <div><h3>DSCR Loans</h3><p>Cash-flow qualifying, for acquisitions and refinances, including cash-out to pay off hard money and move into long-term debt.</p></div>
-      </div>
-      <div class="program-row">
-        <div class="program-num">04</div>
-        <div><h3>Ground-Up Construction</h3><p>New residential construction financing for experienced builders and investors.</p></div>
-      </div>
-      <div class="program-row">
-        <div class="program-num">05</div>
-        <div><h3>Commercial &amp; MHP/RVP</h3><p>Multi-family, self-storage, retail, and a genuine niche specialty in mobile home &amp; RV parks.</p></div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<span class="eyebrow">Loan Programs</span>
+<h2>Loans designed for investors.</h2>
+<p class="sub">Flexible financing tailored to your deal — residential, commercial, and everything in between. $75K–$15M+.</p>
+<div class="program-list">
+<div class="program-row">
+<div class="program-num">01</div>
+<div><h3>Fix &amp; Flip</h3><p>Renovation loans tailored to your project. We start by asking what matters more right now — cost of capital or cash out of pocket at close — and tailor your options around the answer.</p></div>
+</div>
+<div class="program-row">
+<div class="program-num">02</div>
+<div><h3>Bridge Loans</h3><p>1–3 year acquisitions and refinances — get out of hard money, or pull equity from a finished flip to redeploy immediately.</p></div>
+</div>
+<div class="program-row">
+<div class="program-num">03</div>
+<div><h3>DSCR Loans</h3><p>Cash-flow qualifying, for acquisitions and refinances, including cash-out to pay off hard money and move into long-term debt.</p></div>
+</div>
+<div class="program-row">
+<div class="program-num">04</div>
+<div><h3>Ground-Up Construction</h3><p>New residential construction financing for experienced builders and investors.</p></div>
+</div>
+<div class="program-row">
+<div class="program-num">05</div>
+<div><h3>Commercial &amp; MHP/RVP</h3><p>Multi-family, self-storage, retail, and a genuine niche specialty in mobile home &amp; RV parks.</p></div>
+</div>
+</div>
+</div>
 </section>
 
 <section class="mm-section" id="middle-market">
-  <div class="wrap">
-    <span class="eyebrow on-dark">The Maple and Millwood Consultants Advantage</span>
-    <h2>Capital solutions that live between the bank and hard money.</h2>
-    <p class="sub">We always start by seeing if a deal fits traditional bank financing — it's the cheapest capital out there. When it doesn't, most lenders jump straight to hard money — often 12–16%+ before points, with aggressive terms attached. We don't.</p>
-    <div class="quote-block">
-      <div class="quote-label">The Question We Always Ask First</div>
-      <div class="quote-text">"Cost of capital, or cash at closing?" — your answer changes how we structure your deal.</div>
-    </div>
-    <div class="tiers">
-      <div class="tier tier-bank">
-        <div class="tier-label">Traditional</div>
-        <h4>Bank / SBA</h4>
-        <div class="rate">~5–7%</div>
-        <p>Where every deal starts. Cheapest capital, most straightforward qualification — the first option we check.</p>
-      </div>
-      <div class="tier tier-mm">
-        <div class="tier-badge">Our Specialty</div>
-        <div class="tier-label" style="color:rgba(255,255,255,.85);">When The Bank Says No</div>
-        <h4>Middle Market Solutions</h4>
-        <div class="rate">9.7–11.5%</div>
-        <p>Not the starting point — the fallback when the bank says no. A far cheaper, faster-to-close alternative to hard money for complex or declined deals. Rate buy-down options available.</p>
-      </div>
-      <div class="tier tier-hm">
-        <div class="tier-label">Last Resort</div>
-        <h4>Hard Money</h4>
-        <div class="rate">12–16%+</div>
-        <p>The true last resort, when neither of the above fits. High double-digit rates plus points, aggressive terms — lender comfortable taking the asset back.</p>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<span class="eyebrow on-dark">The Maple and Millwood Consultants Advantage</span>
+<h2>Capital solutions that live between the bank and hard money.</h2>
+<p class="sub">We always start by seeing if a deal fits traditional bank financing — it's the cheapest capital out there. When it doesn't, most lenders jump straight to hard money — often 12–16%+ before points, with aggressive terms attached. We don't.</p>
+<div class="quote-block">
+<div class="quote-label">The Question We Always Ask First</div>
+<div class="quote-text">"Cost of capital, or cash at closing?" — your answer changes how we structure your deal.</div>
+</div>
+<div class="tiers">
+<div class="tier tier-bank">
+<div class="tier-label">Traditional</div>
+<h4>Bank / SBA</h4>
+<div class="rate">~5–7%</div>
+<p>Where every deal starts. Cheapest capital, most straightforward qualification — the first option we check.</p>
+</div>
+<div class="tier tier-mm">
+<div class="tier-badge">Our Specialty</div>
+<div class="tier-label" style="color:rgba(255,255,255,.85);">When The Bank Says No</div>
+<h4>Middle Market Solutions</h4>
+<div class="rate">9.7–11.5%</div>
+<p>Not the starting point — the fallback when the bank says no. A far cheaper, faster-to-close alternative to hard money for complex or declined deals. Rate buy-down options available.</p>
+</div>
+<div class="tier tier-hm">
+<div class="tier-label">Last Resort</div>
+<h4>Hard Money</h4>
+<div class="rate">12–16%+</div>
+<p>The true last resort, when neither of the above fits. High double-digit rates plus points, aggressive terms — lender comfortable taking the asset back.</p>
+</div>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="wrap">
-    <span class="eyebrow">Why Maple and Millwood Consultants</span>
-    <h2>Built for investors who've outgrown generic lenders.</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">01</div>
-        <h3>A Real Advisor, Not a Portal</h3>
-        <p>You're not filling out a form into a black box. I personally review every submission and stay your point of contact as we work with our capital partners to get your deal funded.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">02</div>
-        <h3>Real Numbers, Not Guesses</h3>
-        <p>No generic rate sheet quotes. Once I have the details on your deal, you get real terms built around it — not a teaser rate that only applies to a fraction of borrowers.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">03</div>
-        <h3>Built for Complexity</h3>
-        <p>Low cash-flow/DSCR, projection-based, and asset-based deals — the ones other lenders pass on, we're built to close.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-num">04</div>
-        <h3>Relationships Over Transactions</h3>
-        <p>We're building a long-term capital partnership for your next deal, and the one after that — not chasing a single closing.</p>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<span class="eyebrow">Why Maple and Millwood Consultants</span>
+<h2>Built for investors who've outgrown generic lenders.</h2>
+<div class="why-grid">
+<div class="why-card">
+<div class="why-num">01</div>
+<h3>A Real Advisor, Not a Portal</h3>
+<p>You're not filling out a form into a black box. I personally review every submission and stay your point of contact as we work with our capital partners to get your deal funded.</p>
+</div>
+<div class="why-card">
+<div class="why-num">02</div>
+<h3>Real Numbers, Not Guesses</h3>
+<p>No generic rate sheet quotes. Once I have the details on your deal, you get real terms built around it — not a teaser rate that only applies to a fraction of borrowers.</p>
+</div>
+<div class="why-card">
+<div class="why-num">03</div>
+<h3>Built for Complexity</h3>
+<p>Low cash-flow/DSCR, projection-based, and asset-based deals — the ones other lenders pass on, we're built to close.</p>
+</div>
+<div class="why-card">
+<div class="why-num">04</div>
+<h3>Relationships Over Transactions</h3>
+<p>We're building a long-term capital partnership for your next deal, and the one after that — not chasing a single closing.</p>
+</div>
+</div>
+</div>
 </section>
 
 <section class="section-soft">
-  <div class="wrap">
-    <span class="eyebrow">How It Works</span>
-    <h2>Our simple process.</h2>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h4>Apply</h4><p>Submit your deal in minutes below.</p></div>
-      <div class="step"><div class="num">2</div><h4>Review</h4><p>Term sheet within 1 business day for standard requests.</p></div>
-      <div class="step"><div class="num">3</div><h4>Approve</h4><p>Fast underwriting, built around your deal and profile.</p></div>
-      <div class="step"><div class="num">4</div><h4>Fund</h4><p>Capital deployed on your closing timeframe.</p></div>
-    </div>
-  </div>
+<div class="wrap">
+<span class="eyebrow">How It Works</span>
+<h2>Our simple process.</h2>
+<div class="steps">
+<div class="step"><div class="num">1</div><h4>Apply</h4><p>Submit your deal in minutes below.</p></div>
+<div class="step"><div class="num">2</div><h4>Review</h4><p>Term sheet within 1 business day for standard requests.</p></div>
+<div class="step"><div class="num">3</div><h4>Approve</h4><p>Fast underwriting, built around your deal and profile.</p></div>
+<div class="step"><div class="num">4</div><h4>Fund</h4><p>Capital deployed on your closing timeframe.</p></div>
+</div>
+</div>
 </section>
 
 <section id="faq">
-  <div class="wrap-narrow">
-    <div class="center-block">
-      <span class="eyebrow">Questions</span>
-      <h2>Frequently asked questions.</h2>
-    </div>
-    <div class="faq-list">
-      <details class="faq-item" open>
-        <summary>What are your rates like?</summary>
-        <p>Rate is 100% deal- and borrower-dependent — a strong borrower with a thin deal won't get top terms, and a great deal with a weak borrower won't either. We don't quote a "teaser" rate that only applies to platinum-tier borrowers, because it misleads anyone who won't actually qualify. Real numbers come from a term sheet built for your specific deal.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What's the minimum deal size?</summary>
-        <p>$75K up to $15M+, across residential and commercial. We're generally not the right fit under $100K or with credit below 660.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What is Middle Market lending, and when do you use it?</summary>
-        <p>It's not our starting point or our only offering — it's the tool we reach for when a deal doesn't fit the traditional bank box: low cash flow/DSCR, projection-based, and asset-based deals among them. It closes faster and costs meaningfully less than hard money, with rate buy-down options available.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Do you do gap lending, second-position lending, or investment HELOCs?</summary>
-        <p>No to all three. We're a primary-debt lender — not a gap/second-position or equity-partnership structure.</p>
-      </details>
-      <details class="faq-item">
-        <summary>How long does approval take?</summary>
-        <p>Term sheet within 1 business day for a standard request; up to 1 week for commercial deals.</p>
-      </details>
-    </div>
-  </div>
+<div class="wrap-narrow">
+<div class="center-block">
+<span class="eyebrow">Questions</span>
+<h2>Frequently asked questions.</h2>
+</div>
+<div class="faq-list">
+<details class="faq-item" open>
+<summary>What are your rates like?</summary>
+<p>Rate is 100% deal- and borrower-dependent — a strong borrower with a thin deal won't get top terms, and a great deal with a weak borrower won't either. We don't quote a "teaser" rate that only applies to platinum-tier borrowers, because it misleads anyone who won't actually qualify. Real numbers come from a term sheet built for your specific deal.</p>
+</details>
+<details class="faq-item">
+<summary>What's the minimum deal size?</summary>
+<p>$75K up to $15M+, across residential and commercial. We're generally not the right fit under $100K or with credit below 660.</p>
+</details>
+<details class="faq-item">
+<summary>What is Middle Market lending, and when do you use it?</summary>
+<p>It's not our starting point or our only offering — it's the tool we reach for when a deal doesn't fit the traditional bank box: low cash flow/DSCR, projection-based, and asset-based deals among them. It closes faster and costs meaningfully less than hard money, with rate buy-down options available.</p>
+</details>
+<details class="faq-item">
+<summary>Do you do gap lending, second-position lending, or investment HELOCs?</summary>
+<p>No to all three. We're a primary-debt lender — not a gap/second-position or equity-partnership structure.</p>
+</details>
+<details class="faq-item">
+<summary>How long does approval take?</summary>
+<p>Term sheet within 1 business day for a standard request; up to 1 week for commercial deals.</p>
+</details>
+</div>
+</div>
 </section>
 
 <section class="apply-section" id="apply">
-  <div class="wrap center-block">
-    <span class="eyebrow">Let's Talk</span>
-    <h2>Ready to build a partnership?</h2>
-    <p class="sub">Complete the form below and I'll personally review your deal — we typically respond within a few hours.</p>
-    <div class="talk-row">
-      <span>Prefer to talk it through first?</span>
-      <a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" class="btn btn-outline-dark" target="_blank" rel="noopener" style="padding:10px 20px;">Book a 15-Min Call</a>
-    </div>
-    <div class="form-wrap">
-      <form id="leadForm">
-        <div class="form-section">
-          <div class="form-section-title">Contact Information</div>
-          <div class="field-grid">
-            <div class="field"><label>Full Name *</label><input type="text" id="name" placeholder="John Smith" required></div>
-            <div class="field"><label>Email Address *</label><input type="email" id="email" placeholder="john@email.com" required></div>
-            <div class="field"><label>Phone Number *</label><input type="tel" id="phone" placeholder="(555) 123-4567" required></div>
-          </div>
-        </div>
+<div class="wrap center-block">
+<span class="eyebrow">Let's Talk</span>
+<h2>Ready to build a partnership?</h2>
+<p class="sub">Complete the form below and I'll personally review your deal — we typically respond within a few hours.</p>
+<div class="talk-row">
+<span>Prefer to talk it through first?</span>
+<a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" class="btn btn-outline-dark" target="_blank" rel="noopener" style="padding:10px 20px;">Book a 15-Min Call</a>
+</div>
+<div class="form-wrap">
+<form id="leadForm">
 
-        <div class="form-section">
-          <div class="form-section-title">The Deal</div>
-          <div class="field-grid single">
-            <div class="field"><label>Property Address *</label><input type="text" id="property_address" placeholder="123 Main St, City, State 12345" required></div>
-          </div>
-          <div class="field-grid" style="margin-top:16px;">
-            <div class="field">
-              <label>Property Type *</label>
-              <select id="property_type" required>
-                <option value="">Select...</option>
-                <option value="Single Family">Single Family</option>
-                <option value="Multi-Family (2-4 units)">Multi-Family (2-4 units)</option>
-                <option value="Multi-Family (5+ units)">Multi-Family (5+ units)</option>
-                <option value="Condo/Townhome">Condo/Townhome</option>
-                <option value="Mixed-Use">Mixed-Use</option>
-                <option value="Commercial">Commercial</option>
-                <option value="Land">Land</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Property State *</label>
-              <select id="property_state" required>
-                <option value="">Select...</option>
-                <option value="Alabama">Alabama</option>
-                <option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option>
-                <option value="California">California</option>
-                <option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option>
-                <option value="District of Columbia">District of Columbia</option>
-                <option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option>
-                <option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option>
-                <option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option>
-                <option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option>
-                <option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option>
-                <option value="Minnesota">Minnesota</option>
-                <option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option>
-                <option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option>
-                <option value="New Hampshire">New Hampshire</option>
-                <option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option>
-                <option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option>
-                <option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option>
-                <option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option>
-                <option value="South Dakota">South Dakota</option>
-                <option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option>
-                <option value="Utah">Utah</option>
-                <option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option>
-                <option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-grid" style="margin-top:16px;">
-            <div class="field">
-              <label>Loan Type Needed *</label>
-              <select id="loan_type" required onchange="toggleNewConstruction(); updateDscrBridgeFields();">
-                <option value="">Select...</option>
-                <option value="Fix & Flip">Fix and Flip</option>
-                <option value="DSCR">DSCR (Rental)</option>
-                <option value="Bridge">Bridge Loan</option>
-                <option value="New Construction">New Construction</option>
-                <option value="Not Sure">Not Sure</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Purchase or Refinance?</label>
-              <select id="transaction_type" onchange="updateDscrBridgeFields();">
-                <option value="">Select...</option>
-                <option value="Purchase">Purchase</option>
-                <option value="Refinance">Refinance</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-grid triple" style="margin-top:16px;">
-            <div class="field"><label>Purchase Price (As-Is Value if Already Owned) *</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="purchase_price" placeholder="250,000" required oninput="formatMoney(this)"></div>
-            </div>
-            <div class="field"><label>Rehab Budget</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="rehab_budget" placeholder="50,000" oninput="formatMoney(this)"></div>
-            </div>
-            <div class="field"><label>After Repair Value (ARV)</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="arv" placeholder="400,000" oninput="formatMoney(this)"></div>
-            </div>
-          </div>
-          <div class="field-grid" id="dscrBridgeFields" style="margin-top:16px; display:none;">
-            <div class="field" id="payoffField" style="display:none;">
-              <label>Payoff Amount for Existing Liens</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="payoff_amount" placeholder="150,000" oninput="formatMoney(this)"></div>
-            </div>
-            <div class="field"><label>Annual Property Taxes</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="annual_taxes" placeholder="4,500" oninput="formatMoney(this)"></div>
-            </div>
-            <div class="field"><label>Annual Insurance</label>
-              <div class="money-input"><span class="money-symbol">$</span><input type="text" id="annual_insurance" placeholder="2,200" oninput="formatMoney(this)"></div>
-            </div>
-          </div>
-          <div class="field-grid" style="margin-top:16px;">
-            <div class="field">
-              <label>Are You Under Contract?</label>
-              <select id="under_contract" onchange="toggleUpload()">
-                <option value="">Select...</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-                <option value="LOI">LOI submitted</option>
-                <option value="Already Own Property">Already own the property</option>
-              </select>
-            </div>
-            <div class="field"><label>Required Close Date</label><input type="date" id="close_date"></div>
-          </div>
-          <div class="field-grid single conditional-field" id="uploadField" style="margin-top:16px;">
-            <div class="field">
-              <label>Upload Your Contract (optional)</label>
-              <div class="upload-area" onclick="document.getElementById('contractFile').click()">
-                <input type="file" id="contractFile" accept=".pdf,.doc,.docx" onchange="showFileName(this)">
-                <label class="upload-label"><span>Click to upload</span> or drag and drop — PDF, DOC, DOCX</label>
-                <div class="file-name" id="fileName"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+<!-- Honeypot field — hidden from real users, catches bots that auto-fill every input -->
+<div class="hp-field" aria-hidden="true">
+<label for="hp_website">Leave this field blank</label>
+<input type="text" id="hp_website" name="hp_website" tabindex="-1" autocomplete="off">
+</div>
 
-        <div class="form-section">
-          <div class="form-section-title">Your Profile</div>
-          <div class="field-grid">
-            <div class="field">
-              <label>Investment Properties Completed (Last 3 Years)</label>
-              <select id="experience">
-                <option value="">Select...</option>
-                <option value="0 — First deal">0 — First deal</option>
-                <option value="1-2 deals">1-2 deals</option>
-                <option value="3-5 deals">3-5 deals</option>
-                <option value="6-10 deals">6-10 deals</option>
-                <option value="10+ deals">10+ deals</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Estimated Credit Score</label>
-              <select id="credit_score">
-                <option value="">Select...</option>
-                <option value="Below 640">Below 640</option>
-                <option value="640-679">640-679</option>
-                <option value="680-699">680-699</option>
-                <option value="700-719">700-719</option>
-                <option value="720-739">720-739</option>
-                <option value="740+">740+</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Liquid Funds Available</label>
-              <select id="liquid_funds">
-                <option value="">Select...</option>
-                <option value="Under $10,000">Under $10,000</option>
-                <option value="$25,000-$50,000">$25,000-$50,000</option>
-                <option value="$50,000-$100,000">$50,000-$100,000</option>
-                <option value="$100,000-$250,000">$100,000-$250,000</option>
-                <option value="$250,000+">$250,000+</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Entity Type</label>
-              <select id="entity_type">
-                <option value="">Select...</option>
-                <option value="LLC">LLC</option>
-                <option value="Corporation">Corporation</option>
-                <option value="Individual">Individual</option>
-                <option value="Trust">Trust</option>
-                <option value="Not yet formed">Not yet formed</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Do You Own Your Primary Residence?</label>
-              <select id="owns_primary">
-                <option value="">Select...</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Any bankruptcies, foreclosures, tax liens, or child support issues in the last 36 months?</label>
-              <select id="derogatory">
-                <option value="">Select...</option>
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
-                <option value="Prefer to discuss">Prefer to discuss</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Citizenship Status</label>
-              <select id="citizenship_status">
-                <option value="">Select...</option>
-                <option value="US Citizen">US Citizen</option>
-                <option value="Foreign National">Foreign National</option>
-                <option value="Non-Citizen">Non-Citizen</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-grid single conditional-field" id="newConstructionField" style="margin-top:16px;">
-            <div class="field">
-              <label>New Construction Only — How many successful ground-up projects have you completed in the last 48 months?</label>
-              <select id="construction_experience">
-                <option value="">Select...</option>
-                <option value="0 — First project">0 — First project</option>
-                <option value="1-2 projects">1-2 projects</option>
-                <option value="3-5 projects">3-5 projects</option>
-                <option value="6-10 projects">6-10 projects</option>
-                <option value="10+ projects">10+ projects</option>
-              </select>
-            </div>
-          </div>
-        </div>
+<div class="form-section">
+<div class="form-section-title">Contact Information</div>
+<div class="field-grid">
+<div class="field"><label>Full Name *</label><input type="text" id="name" placeholder="John Smith" required></div>
+<div class="field"><label>Email Address *</label><input type="email" id="email" placeholder="john@email.com" required></div>
+<div class="field"><label>Phone Number *</label><input type="tel" id="phone" placeholder="(555) 123-4567" required></div>
+</div>
+</div>
 
-        <div class="form-section">
-          <div class="form-section-title">Additional Details</div>
-          <div class="field-grid single">
-            <div class="field">
-              <label>Tell us about the deal — property condition, exit strategy, anything else we should know</label>
-              <textarea id="message" placeholder="Example: 3bed/2bath single family in Cleveland. Needs full kitchen and bath remodel. Buying below market from motivated seller. Plan to flip within 4 months."></textarea>
-            </div>
-          </div>
-          <div class="consent-row">
-            <input type="checkbox" id="consent" required>
-            <label for="consent">I agree to be contacted by call, text, or email by Maple and Millwood Consultants regarding my loan inquiry. *</label>
-          </div>
-        </div>
+<div class="form-section">
+<div class="form-section-title">The Deal</div>
+<div class="field-grid single">
+<div class="field"><label>Property Address *</label><input type="text" id="property_address" placeholder="123 Main St, City, State 12345" required></div>
+</div>
+<div class="field-grid triple" style="margin-top:16px;">
+<div class="field">
+<label>Property Type *</label>
+<select id="property_type" required>
+<option value="">Select...</option>
+<option value="Single Family">Single Family</option>
+<option value="Multi-Family (2-4 units)">Multi-Family (2-4 units)</option>
+<option value="Multi-Family (5+ units)">Multi-Family (5+ units)</option>
+<option value="Condo/Townhome">Condo/Townhome</option>
+<option value="Mixed-Use">Mixed-Use</option>
+<option value="Commercial">Commercial</option>
+<option value="Land">Land</option>
+</select>
+</div>
+<div class="field">
+<label>Property State *</label>
+<select id="property_state" required>
+<option value="">Select...</option>
+<option value="Alabama">Alabama</option>
+<option value="Alaska">Alaska</option>
+<option value="Arizona">Arizona</option>
+<option value="Arkansas">Arkansas</option>
+<option value="California">California</option>
+<option value="Colorado">Colorado</option>
+<option value="Connecticut">Connecticut</option>
+<option value="Delaware">Delaware</option>
+<option value="District of Columbia">District of Columbia</option>
+<option value="Florida">Florida</option>
+<option value="Georgia">Georgia</option>
+<option value="Hawaii">Hawaii</option>
+<option value="Idaho">Idaho</option>
+<option value="Illinois">Illinois</option>
+<option value="Indiana">Indiana</option>
+<option value="Iowa">Iowa</option>
+<option value="Kansas">Kansas</option>
+<option value="Kentucky">Kentucky</option>
+<option value="Louisiana">Louisiana</option>
+<option value="Maine">Maine</option>
+<option value="Maryland">Maryland</option>
+<option value="Massachusetts">Massachusetts</option>
+<option value="Michigan">Michigan</option>
+<option value="Minnesota">Minnesota</option>
+<option value="Mississippi">Mississippi</option>
+<option value="Missouri">Missouri</option>
+<option value="Montana">Montana</option>
+<option value="Nebraska">Nebraska</option>
+<option value="Nevada">Nevada</option>
+<option value="New Hampshire">New Hampshire</option>
+<option value="New Jersey">New Jersey</option>
+<option value="New Mexico">New Mexico</option>
+<option value="New York">New York</option>
+<option value="North Carolina">North Carolina</option>
+<option value="North Dakota">North Dakota</option>
+<option value="Ohio">Ohio</option>
+<option value="Oklahoma">Oklahoma</option>
+<option value="Oregon">Oregon</option>
+<option value="Pennsylvania">Pennsylvania</option>
+<option value="Rhode Island">Rhode Island</option>
+<option value="South Carolina">South Carolina</option>
+<option value="South Dakota">South Dakota</option>
+<option value="Tennessee">Tennessee</option>
+<option value="Texas">Texas</option>
+<option value="Utah">Utah</option>
+<option value="Vermont">Vermont</option>
+<option value="Virginia">Virginia</option>
+<option value="Washington">Washington</option>
+<option value="West Virginia">West Virginia</option>
+<option value="Wisconsin">Wisconsin</option>
+<option value="Wyoming">Wyoming</option>
+</select>
+</div>
+<div class="field">
+<label>Zip Code *</label>
+<input type="text" id="zip_code" placeholder="12345" inputmode="numeric" maxlength="10" required>
+</div>
+</div>
+<div class="field-grid" style="margin-top:16px;">
+<div class="field">
+<label>Loan Type Needed *</label>
+<select id="loan_type" required onchange="toggleNewConstruction(); updateDealFields();">
+<option value="">Select...</option>
+<option value="Fix & Flip">Fix and Flip</option>
+<option value="DSCR">DSCR</option>
+<option value="Bridge">Bridge</option>
+<option value="New Construction">New Construction</option>
+<option value="Not Sure">Not Sure</option>
+</select>
+</div>
+<div class="field">
+<label>Purchase or Refinance?</label>
+<select id="transaction_type" onchange="updateDealFields();">
+<option value="">Select...</option>
+<option value="Purchase">Purchase</option>
+<option value="Refinance">Refinance</option>
+</select>
+</div>
+</div>
 
-        <div class="submit-section">
-          <button type="button" class="btn btn-primary submit-btn" id="submitBtn" onclick="submitForm()">Submit My Deal</button>
-          <p class="form-disclaimer">We typically respond within a few hours during business days. Your information is kept strictly confidential.</p>
-          <div class="error-banner" id="errorBanner"></div>
-        </div>
-      </form>
+<!-- Purchase-path fields -->
+<div class="field-grid triple conditional-grid show" id="purchaseFields" style="margin-top:16px;">
+<div class="field"><label id="purchasePriceLabel">Purchase Price *</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="purchase_price" placeholder="250,000" oninput="formatMoney(this)"></div>
+</div>
+<div class="field"><label>Rehab Budget</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="rehab_budget" placeholder="50,000" oninput="formatMoney(this)"></div>
+</div>
+<div class="field"><label>After Repair Value (ARV)</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="arv" placeholder="400,000" oninput="formatMoney(this)"></div>
+</div>
+</div>
 
-      <div class="success-box" id="successMsg">
-        <div class="check">✓</div>
-        <h3>We have your deal.</h3>
-        <p>I'll review your submission personally and reach out within a few hours.</p>
-      </div>
-    </div>
-  </div>
+<!-- Refinance-path fields -->
+<div class="field-grid conditional-grid" id="refiFields1" style="margin-top:16px;">
+<div class="field"><label>Original Purchase Date</label><input type="date" id="original_purchase_date"></div>
+<div class="field"><label>Original Purchase Price</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="original_purchase_price" placeholder="250,000" oninput="formatMoney(this)"></div>
+</div>
+</div>
+<div class="field-grid triple conditional-grid" id="refiFields2" style="margin-top:16px;">
+<div class="field"><label>Amount of Rehab Completed</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="rehab_completed" placeholder="50,000" oninput="formatMoney(this)"></div>
+</div>
+<div class="field"><label>Current As-Is Value</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="current_value" placeholder="400,000" oninput="formatMoney(this)"></div>
+</div>
+<div class="field"><label>Payoff Amount / Existing Liens</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="payoff_amount" placeholder="150,000" oninput="formatMoney(this)"></div>
+</div>
+</div>
+
+<!-- Taxes / Insurance — hidden only for Fix & Flip -->
+<div class="field-grid conditional-grid show" id="taxesInsuranceFields" style="margin-top:16px;">
+<div class="field"><label>Annual Property Taxes</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="annual_taxes" placeholder="4,500" oninput="formatMoney(this)"></div>
+</div>
+<div class="field"><label>Annual Insurance</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="annual_insurance" placeholder="2,200" oninput="formatMoney(this)"></div>
+</div>
+</div>
+
+<!-- Rent fields — shown only for DSCR / Bridge -->
+<div class="field-grid triple conditional-grid" id="rentFields" style="margin-top:16px;">
+<div class="field">
+<label>Is the Property Currently Rented? *</label>
+<select id="is_rented" onchange="updateRentFields();">
+<option value="">Select...</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+</select>
+</div>
+<div class="field conditional-field" id="grossRentField">
+<label>Current Gross Rent *</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="gross_rent" placeholder="2,200" oninput="formatMoney(this)"></div>
+</div>
+<div class="field conditional-field" id="marketRentField">
+<label>Estimated Market Rent *</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="market_rent" placeholder="2,200" oninput="formatMoney(this)"></div>
+</div>
+</div>
+
+<div class="field-grid" style="margin-top:16px;">
+<div class="field">
+<label>Are You Under Contract?</label>
+<select id="under_contract" onchange="toggleUpload()">
+<option value="">Select...</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+<option value="LOI">LOI submitted</option>
+<option value="Already Own Property">Already own the property</option>
+</select>
+</div>
+<div class="field"><label>Required Close Date</label><input type="date" id="close_date"></div>
+</div>
+<div class="field-grid single conditional-field" id="uploadField" style="margin-top:16px;">
+<div class="field">
+<label>Upload Your Contract (optional)</label>
+<div class="upload-area" onclick="document.getElementById('contractFile').click()">
+<input type="file" id="contractFile" accept=".pdf,.doc,.docx" onchange="showFileName(this)">
+<label class="upload-label"><span>Click to upload</span> or drag and drop — PDF, DOC, DOCX</label>
+<div class="file-name" id="fileName"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="form-section">
+<div class="form-section-title">Your Profile</div>
+<div class="field-grid">
+<div class="field">
+<label>Investment Properties Completed (Last 3 Years) *</label>
+<select id="experience" required>
+<option value="">Select...</option>
+<option value="0 — First deal">0 — First deal</option>
+<option value="1-2 deals">1-2 deals</option>
+<option value="3-5 deals">3-5 deals</option>
+<option value="6-10 deals">6-10 deals</option>
+<option value="10+ deals">10+ deals</option>
+</select>
+</div>
+<div class="field">
+<label>Estimated Credit Score *</label>
+<select id="credit_score" required>
+<option value="">Select...</option>
+<option value="Below 640">Below 640</option>
+<option value="640-679">640-679</option>
+<option value="680-699">680-699</option>
+<option value="700-719">700-719</option>
+<option value="720-739">720-739</option>
+<option value="740+">740+</option>
+</select>
+</div>
+<div class="field">
+<label>Liquid Funds Available</label>
+<select id="liquid_funds">
+<option value="">Select...</option>
+<option value="Under $10,000">Under $10,000</option>
+<option value="$25,000-$50,000">$25,000-$50,000</option>
+<option value="$50,000-$100,000">$50,000-$100,000</option>
+<option value="$100,000-$250,000">$100,000-$250,000</option>
+<option value="$250,000+">$250,000+</option>
+</select>
+</div>
+<div class="field">
+<label>Entity Type</label>
+<select id="entity_type">
+<option value="">Select...</option>
+<option value="LLC">LLC</option>
+<option value="Corporation">Corporation</option>
+<option value="Individual">Individual</option>
+<option value="Trust">Trust</option>
+<option value="Not yet formed">Not yet formed</option>
+</select>
+</div>
+<div class="field">
+<label>Do You Own Your Primary Residence? *</label>
+<select id="owns_primary" required>
+<option value="">Select...</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+</select>
+</div>
+<div class="field">
+<label>Any bankruptcies, foreclosures, tax liens, or child support issues in the last 36 months?</label>
+<select id="derogatory">
+<option value="">Select...</option>
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+<option value="Prefer to discuss">Prefer to discuss</option>
+</select>
+</div>
+<div class="field">
+<label>Citizenship Status *</label>
+<select id="citizenship_status" required>
+<option value="">Select...</option>
+<option value="US Citizen">US Citizen</option>
+<option value="Foreign National">Foreign National</option>
+<option value="Non-Citizen">Non-Citizen</option>
+</select>
+</div>
+</div>
+<div class="field-grid single conditional-field" id="newConstructionField" style="margin-top:16px;">
+<div class="field">
+<label>New Construction Only — How many successful ground-up projects have you completed in the last 48 months?</label>
+<select id="construction_experience">
+<option value="">Select...</option>
+<option value="0 — First project">0 — First project</option>
+<option value="1-2 projects">1-2 projects</option>
+<option value="3-5 projects">3-5 projects</option>
+<option value="6-10 projects">6-10 projects</option>
+<option value="10+ projects">10+ projects</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="form-section">
+<div class="form-section-title">Additional Details</div>
+<div class="field-grid single">
+<div class="field">
+<label>Tell us about the deal — property condition, exit strategy, anything else we should know</label>
+<textarea id="message" placeholder="Example: 3bed/2bath single family in Cleveland. Needs full kitchen and bath remodel. Buying below market from motivated seller. Plan to flip within 4 months."></textarea>
+</div>
+</div>
+<div class="consent-row">
+<input type="checkbox" id="consent" required>
+<label for="consent">I agree to be contacted by call, text, or email by Maple and Millwood Consultants regarding my loan inquiry. *</label>
+</div>
+</div>
+
+<div class="submit-section">
+<button type="button" class="btn btn-primary submit-btn" id="submitBtn" onclick="submitForm()">Submit My Deal</button>
+<p class="form-disclaimer">We typically respond within a few hours during business days. Your information is kept strictly confidential.</p>
+<div class="error-banner" id="errorBanner"></div>
+</div>
+</form>
+
+<div class="success-box" id="successMsg">
+<div class="check">✓</div>
+<h3>We have your deal.</h3>
+<p>I'll review your submission personally and reach out within a few hours.</p>
+</div>
+</div>
+</div>
 </section>
 
 <script>
-  document.getElementById('close_date').min = new Date().toISOString().split('T')[0];
+document.getElementById('close_date').min = new Date().toISOString().split('T')[0];
 
-  function formatMoney(input){
-    let value = input.value.replace(/[^0-9]/g, '');
-    if (value === '') { input.value = ''; return; }
-    input.value = parseInt(value).toLocaleString();
-  }
-  function getRawMoney(id){
-    const val = document.getElementById(id).value.replace(/[^0-9]/g, '');
-    return val ? parseInt(val) : 0;
-  }
-  function toggleUpload(){
-    const val = document.getElementById('under_contract').value;
-    const uploadField = document.getElementById('uploadField');
-    if (val === 'Yes' || val === 'LOI') uploadField.classList.add('show');
-    else uploadField.classList.remove('show');
-  }
-  function toggleNewConstruction(){
-    const val = document.getElementById('loan_type').value;
-    const ncField = document.getElementById('newConstructionField');
-    if (val === 'New Construction') ncField.classList.add('show');
-    else ncField.classList.remove('show');
-  }
-  function updateDscrBridgeFields(){
-    const loanType = document.getElementById('loan_type').value;
-    const txnType = document.getElementById('transaction_type').value;
-    const isDscrBridge = (loanType === 'DSCR' || loanType === 'Bridge');
-    const showPayoff = isDscrBridge && txnType === 'Refinance';
-    const wrap = document.getElementById('dscrBridgeFields');
-    const payoff = document.getElementById('payoffField');
-    wrap.style.display = isDscrBridge ? 'grid' : 'none';
-    wrap.classList.toggle('triple', showPayoff);
-    payoff.style.display = showPayoff ? 'flex' : 'none';
-  }
-  function showFileName(input){
-    const fileNameDiv = document.getElementById('fileName');
-    if (input.files && input.files[0]) {
-      fileNameDiv.textContent = input.files[0].name;
-      fileNameDiv.style.display = 'block';
-    }
-  }
-  function fileToBase64(file){
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
-      reader.onerror = () => reject(new Error('Could not read file'));
-      reader.readAsDataURL(file);
-    });
-  }
-  function showError(msg){
-    const banner = document.getElementById('errorBanner');
-    banner.textContent = msg;
-    banner.style.display = 'block';
-  }
-  function hideError(){
-    document.getElementById('errorBanner').style.display = 'none';
-  }
+function formatMoney(input){
+let value = input.value.replace(/[^0-9]/g, '');
+if (value === '') { input.value = ''; return; }
+input.value = parseInt(value).toLocaleString();
+}
+function getRawMoney(id){
+const el = document.getElementById(id);
+if (!el) return 0;
+const val = el.value.replace(/[^0-9]/g, '');
+return val ? parseInt(val) : 0;
+}
+function toggleUpload(){
+const val = document.getElementById('under_contract').value;
+const uploadField = document.getElementById('uploadField');
+if (val === 'Yes' || val === 'LOI') uploadField.classList.add('show');
+else uploadField.classList.remove('show');
+}
+function toggleNewConstruction(){
+const val = document.getElementById('loan_type').value;
+const ncField = document.getElementById('newConstructionField');
+if (val === 'New Construction') ncField.classList.add('show');
+else ncField.classList.remove('show');
+}
+function updateDealFields(){
+const loanType = document.getElementById('loan_type').value;
+const txnType = document.getElementById('transaction_type').value;
+const isFixFlip = loanType === 'Fix & Flip';
+const isDscrBridge = (loanType === 'DSCR' || loanType === 'Bridge');
+const isRefi = txnType === 'Refinance' && !isFixFlip;
 
-  async function submitForm(){
-    hideError();
+const purchaseFields = document.getElementById('purchaseFields');
+const refiFields1 = document.getElementById('refiFields1');
+const refiFields2 = document.getElementById('refiFields2');
+const taxesInsuranceFields = document.getElementById('taxesInsuranceFields');
+const rentFields = document.getElementById('rentFields');
+const purchasePriceLabel = document.getElementById('purchasePriceLabel');
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
+purchaseFields.classList.toggle('show', !isRefi);
+refiFields1.classList.toggle('show', isRefi);
+refiFields2.classList.toggle('show', isRefi);
+purchasePriceLabel.textContent = isFixFlip ? 'Purchase Price *' : 'Purchase Price';
 
-    if (!name || !email || !phone) { alert('Please fill in your name, email, and phone number.'); return; }
-    if (!document.getElementById('purchase_price').value) { alert('Please enter the purchase price.'); return; }
-    if (!document.getElementById('property_type').value) { alert('Please select the property type.'); return; }
-    if (!document.getElementById('property_state').value) { alert('Please select the property state.'); return; }
-    if (!document.getElementById('consent').checked) { alert('Please agree to be contacted to submit your deal.'); return; }
+taxesInsuranceFields.classList.toggle('show', !isFixFlip);
 
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
+rentFields.classList.toggle('show', isDscrBridge);
+document.getElementById('is_rented').required = isDscrBridge;
+if (!isDscrBridge) {
+document.getElementById('grossRentField').classList.remove('show');
+document.getElementById('marketRentField').classList.remove('show');
+document.getElementById('gross_rent').required = false;
+document.getElementById('market_rent').required = false;
+} else {
+updateRentFields();
+}
+}
+function updateRentFields(){
+const rented = document.getElementById('is_rented').value;
+const grossField = document.getElementById('grossRentField');
+const marketField = document.getElementById('marketRentField');
+grossField.classList.toggle('show', rented === 'Yes');
+marketField.classList.toggle('show', rented === 'No');
+document.getElementById('gross_rent').required = rented === 'Yes';
+document.getElementById('market_rent').required = rented === 'No';
+}
+function showFileName(input){
+const fileNameDiv = document.getElementById('fileName');
+if (input.files && input.files[0]) {
+fileNameDiv.textContent = input.files[0].name;
+fileNameDiv.style.display = 'block';
+}
+}
+function fileToBase64(file){
+return new Promise((resolve, reject) => {
+const reader = new FileReader();
+reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
+reader.onerror = () => reject(new Error('Could not read file'));
+reader.readAsDataURL(file);
+});
+}
+function showError(msg){
+const banner = document.getElementById('errorBanner');
+banner.textContent = msg;
+banner.style.display = 'block';
+}
+function hideError(){
+document.getElementById('errorBanner').style.display = 'none';
+}
 
-    const submission_id = 'sub_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+async function submitForm(){
+hideError();
 
-    let contract_file_name = '';
-    let contract_file_base64 = '';
-    const fileInput = document.getElementById('contractFile');
-    if (fileInput.files && fileInput.files[0]) {
-      const file = fileInput.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        btn.disabled = false;
-        btn.textContent = 'Submit My Deal';
-        showError('That file is larger than 5MB. Please upload a smaller file, or leave it out and email it to us after submitting.');
-        return;
-      }
-      try {
-        contract_file_name = file.name;
-        contract_file_base64 = await fileToBase64(file);
-      } catch (e) {
-        contract_file_name = '';
-        contract_file_base64 = '';
-      }
-    }
+if (document.getElementById('hp_website').value.trim() !== '') {
+document.getElementById('leadForm').style.display = 'none';
+document.getElementById('successMsg').style.display = 'block';
+return;
+}
 
-    const payload = {
-      submission_id,
-      name, email, phone,
-      property_address: document.getElementById('property_address').value,
-      property_type: document.getElementById('property_type').value,
-      state: document.getElementById('property_state').value,
-      loan_type: document.getElementById('loan_type').value,
-      transaction_type: document.getElementById('transaction_type').value,
-      purchase_price: getRawMoney('purchase_price'),
-      rehab_budget: getRawMoney('rehab_budget'),
-      arv: getRawMoney('arv'),
-      payoff_amount: getRawMoney('payoff_amount'),
-      annual_taxes: getRawMoney('annual_taxes'),
-      annual_insurance: getRawMoney('annual_insurance'),
-      under_contract: document.getElementById('under_contract').value,
-      close_date: document.getElementById('close_date').value,
-      experience: document.getElementById('experience').value,
-      credit_score: document.getElementById('credit_score').value,
-      liquid_funds: document.getElementById('liquid_funds').value,
-      entity_type: document.getElementById('entity_type').value,
-      owns_primary: document.getElementById('owns_primary').value,
-      derogatory: document.getElementById('derogatory').value,
-      citizenship_status: document.getElementById('citizenship_status').value,
-      construction_experience: document.getElementById('construction_experience').value,
-      message: document.getElementById('message').value,
-      consent: true,
-      consent_timestamp: new Date().toISOString(),
-      contract_file_name,
-      contract_file_base64,
-      source: 'Daniel Touchatt Personal Site'
-    };
+const name = document.getElementById('name').value.trim();
+const email = document.getElementById('email').value.trim();
+const phone = document.getElementById('phone').value.trim();
+const loanType = document.getElementById('loan_type').value;
+const txnType = document.getElementById('transaction_type').value;
+const isFixFlip = loanType === 'Fix & Flip';
+const isDscrBridge = (loanType === 'DSCR' || loanType === 'Bridge');
+const isRefi = txnType === 'Refinance' && !isFixFlip;
 
-    try {
-      const resp = await fetch('https://n8n-production-11c3.up.railway.app/webhook/mm-inbound-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+if (!name || !email || !phone) { alert('Please fill in your name, email, and phone number.'); return; }
+if (!document.getElementById('property_type').value) { alert('Please select the property type.'); return; }
+if (!document.getElementById('property_state').value) { alert('Please select the property state.'); return; }
+if (!document.getElementById('zip_code').value.trim()) { alert('Please enter the property zip code.'); return; }
+if (!isRefi && !document.getElementById('purchase_price').value) { alert('Please enter the purchase price.'); return; }
 
-      if (!resp.ok) {
-        throw new Error('Webhook responded with status ' + resp.status);
-      }
+if (isDscrBridge) {
+const rented = document.getElementById('is_rented').value;
+if (!rented) { alert('Please let us know if the property is currently rented.'); return; }
+if (rented === 'Yes' && !document.getElementById('gross_rent').value) { alert('Please enter the current gross rent.'); return; }
+if (rented === 'No' && !document.getElementById('market_rent').value) { alert('Please enter the estimated market rent.'); return; }
+}
 
-      document.getElementById('leadForm').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-      document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth' });
-    } catch (e) {
-      btn.disabled = false;
-      btn.textContent = 'Submit My Deal';
-      showError('Something went wrong submitting your deal — please try again in a moment. If it keeps happening, email us directly at daniel@mapleandmillwood.com and we will get your deal started right away.');
-    }
-  }
+if (!document.getElementById('experience').value) { alert('Please select the number of investment properties completed in the last 3 years.'); return; }
+if (!document.getElementById('credit_score').value) { alert('Please select your estimated credit score.'); return; }
+if (!document.getElementById('owns_primary').value) { alert('Please let us know if you own your primary residence.'); return; }
+if (!document.getElementById('citizenship_status').value) { alert('Please select your citizenship status.'); return; }
+if (!document.getElementById('consent').checked) { alert('Please agree to be contacted to submit your deal.'); return; }
+
+const btn = document.getElementById('submitBtn');
+btn.disabled = true;
+btn.textContent = 'Submitting...';
+
+const submission_id = 'sub_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+
+let contract_file_name = '';
+let contract_file_base64 = '';
+const fileInput = document.getElementById('contractFile');
+if (fileInput.files && fileInput.files[0]) {
+const file = fileInput.files[0];
+if (file.size > 5 * 1024 * 1024) {
+btn.disabled = false;
+btn.textContent = 'Submit My Deal';
+showError('That file is larger than 5MB. Please upload a smaller file, or leave it out and email it to us after submitting.');
+return;
+}
+try {
+contract_file_name = file.name;
+contract_file_base64 = await fileToBase64(file);
+} catch (e) {
+contract_file_name = '';
+contract_file_base64 = '';
+}
+}
+
+const payload = {
+submission_id,
+hp_website: document.getElementById('hp_website').value,
+name, email, phone,
+property_address: document.getElementById('property_address').value,
+property_type: document.getElementById('property_type').value,
+state: document.getElementById('property_state').value,
+zip_code: document.getElementById('zip_code').value.trim(),
+loan_type: loanType,
+transaction_type: txnType,
+purchase_price: getRawMoney('purchase_price'),
+rehab_budget: getRawMoney('rehab_budget'),
+arv: getRawMoney('arv'),
+original_purchase_date: document.getElementById('original_purchase_date').value,
+original_purchase_price: getRawMoney('original_purchase_price'),
+rehab_completed: getRawMoney('rehab_completed'),
+current_value: getRawMoney('current_value'),
+payoff_amount: getRawMoney('payoff_amount'),
+annual_taxes: getRawMoney('annual_taxes'),
+annual_insurance: getRawMoney('annual_insurance'),
+is_rented: document.getElementById('is_rented').value,
+gross_rent: getRawMoney('gross_rent'),
+market_rent: getRawMoney('market_rent'),
+under_contract: document.getElementById('under_contract').value,
+close_date: document.getElementById('close_date').value,
+experience: document.getElementById('experience').value,
+credit_score: document.getElementById('credit_score').value,
+liquid_funds: document.getElementById('liquid_funds').value,
+entity_type: document.getElementById('entity_type').value,
+owns_primary: document.getElementById('owns_primary').value,
+derogatory: document.getElementById('derogatory').value,
+citizenship_status: document.getElementById('citizenship_status').value,
+construction_experience: document.getElementById('construction_experience').value,
+message: document.getElementById('message').value,
+consent: true,
+consent_timestamp: new Date().toISOString(),
+contract_file_name,
+contract_file_base64,
+source: 'Daniel Touchatt Personal Site'
+};
+
+try {
+const resp = await fetch('https://n8n-production-11c3.up.railway.app/webhook/mm-inbound-lead', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(payload)
+});
+
+if (!resp.ok) {
+throw new Error('Webhook responded with status ' + resp.status);
+}
+
+document.getElementById('leadForm').style.display = 'none';
+document.getElementById('successMsg').style.display = 'block';
+document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth' });
+} catch (e) {
+btn.disabled = false;
+btn.textContent = 'Submit My Deal';
+showError('Something went wrong submitting your deal — please try again in a moment. If it keeps happening, email us directly at daniel@mapleandmillwood.com and we will get your deal started right away.');
+}
+}
 </script>
 
 <footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div>
-        <h4>Daniel Touchatt</h4>
-        <div class="foot-links">
-          <span>Capital Advisor, Maple and Millwood Consultants</span>
-          <a href="mailto:daniel@mapleandmillwood.com">daniel@mapleandmillwood.com</a>
-        </div>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <div class="foot-links">
-          <a href="#programs">Loan Programs</a>
-          <a href="#middle-market">Middle Market Solutions</a>
-          <a href="#about">About Daniel</a>
-          <a href="#faq">FAQ</a>
-        </div>
-      </div>
-      <div>
-        <h4>Get Funded</h4>
-        <div class="foot-links">
-          <a href="#apply">Submit Your Deal</a>
-          <a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" target="_blank" rel="noopener">Book a Call</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">© 2026 Maple and Millwood Consultants. Daniel Touchatt, Capital Advisor. All rights reserved.</div>
-  </div>
+<div class="wrap">
+<div class="footer-top">
+<div>
+<h4>Daniel Touchatt</h4>
+<div class="foot-links">
+<span>Capital Advisor, Maple and Millwood Consultants</span>
+<a href="mailto:daniel@mapleandmillwood.com">daniel@mapleandmillwood.com</a>
+</div>
+</div>
+<div>
+<h4>Explore</h4>
+<div class="foot-links">
+<a href="#programs">Loan Programs</a>
+<a href="#middle-market">Middle Market Solutions</a>
+<a href="#about">About Daniel</a>
+<a href="#faq">FAQ</a>
+</div>
+</div>
+<div>
+<h4>Get Funded</h4>
+<div class="foot-links">
+<a href="#apply">Submit Your Deal</a>
+<a href="https://api.leadconnectorhq.com/widget/bookings/danieltouchattrc" target="_blank" rel="noopener">Book a Call</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">© 2026 Maple and Millwood Consultants. Daniel Touchatt, Capital Advisor. All rights reserved.</div>
+</div>
 </footer>
 
 </body>
