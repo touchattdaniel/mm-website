@@ -529,7 +529,7 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <select id="transaction_type" onchange="updateDealFields();">
 <option value="">Select...</option>
 <option value="Purchase">Purchase</option>
-<option value="Refinance">Refinance</option>
+<option value="Refinance" id="refinanceOption">Refinance</option>
 </select>
 </div>
 </div>
@@ -539,11 +539,21 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <div class="field"><label id="purchasePriceLabel">Purchase Price *</label>
 <div class="money-input"><span class="money-symbol">$</span><input type="text" id="purchase_price" placeholder="250,000" oninput="formatMoney(this)"></div>
 </div>
-<div class="field"><label>Rehab Budget</label>
+<div class="field"><label id="rehabBudgetLabel">Rehab Budget</label>
 <div class="money-input"><span class="money-symbol">$</span><input type="text" id="rehab_budget" placeholder="50,000" oninput="formatMoney(this)"></div>
 </div>
 <div class="field"><label>After Repair Value (ARV)</label>
 <div class="money-input"><span class="money-symbol">$</span><input type="text" id="arv" placeholder="400,000" oninput="formatMoney(this)"></div>
+</div>
+</div>
+
+<!-- New Construction only: check if land is already owned, which disables the land purchase amount field above -->
+<div class="field-grid single conditional-field" id="landOwnedRow" style="margin-top:16px;">
+<div class="field">
+<label style="display:flex;flex-direction:row;align-items:center;gap:8px;cursor:pointer;">
+<input type="checkbox" id="land_already_owned" onchange="toggleLandOwned()" style="width:auto;height:16px;flex-shrink:0;accent-color:#1B93A6;">
+N/A — I already own the land
+</label>
 </div>
 </div>
 
@@ -769,10 +779,20 @@ else ncField.classList.remove('show');
 }
 function updateDealFields(){
 const loanType = document.getElementById('loan_type').value;
-const txnType = document.getElementById('transaction_type').value;
+const isNewConstruction = loanType === 'New Construction';
+
+// New Construction is never a refinance — disable that option and clear it if it was selected.
+const refiOption = document.getElementById('refinanceOption');
+const transactionTypeSelect = document.getElementById('transaction_type');
+refiOption.disabled = isNewConstruction;
+if (isNewConstruction && transactionTypeSelect.value === 'Refinance') {
+transactionTypeSelect.value = '';
+}
+
+const txnType = transactionTypeSelect.value;
 const isFixFlip = loanType === 'Fix & Flip';
 const isDscrBridge = (loanType === 'DSCR' || loanType === 'Bridge');
-const isRefi = txnType === 'Refinance' && !isFixFlip;
+const isRefi = txnType === 'Refinance' && !isFixFlip && !isNewConstruction;
 
 const purchaseFields = document.getElementById('purchaseFields');
 const refiFields1 = document.getElementById('refiFields1');
@@ -780,13 +800,26 @@ const refiFields2 = document.getElementById('refiFields2');
 const taxesInsuranceFields = document.getElementById('taxesInsuranceFields');
 const rentFields = document.getElementById('rentFields');
 const purchasePriceLabel = document.getElementById('purchasePriceLabel');
+const rehabBudgetLabel = document.getElementById('rehabBudgetLabel');
+const landOwnedRow = document.getElementById('landOwnedRow');
 
 purchaseFields.classList.toggle('show', !isRefi);
 refiFields1.classList.toggle('show', isRefi);
 refiFields2.classList.toggle('show', isRefi);
-purchasePriceLabel.textContent = isFixFlip ? 'Purchase Price *' : 'Purchase Price';
 
-taxesInsuranceFields.classList.toggle('show', !isFixFlip);
+if (isNewConstruction) {
+purchasePriceLabel.textContent = 'Land Purchase Amount';
+rehabBudgetLabel.textContent = 'Build Cost';
+landOwnedRow.classList.add('show');
+} else {
+purchasePriceLabel.textContent = isFixFlip ? 'Purchase Price *' : 'Purchase Price';
+rehabBudgetLabel.textContent = 'Rehab Budget';
+landOwnedRow.classList.remove('show');
+document.getElementById('land_already_owned').checked = false;
+document.getElementById('purchase_price').disabled = false;
+}
+
+taxesInsuranceFields.classList.toggle('show', !isFixFlip && !isNewConstruction);
 
 rentFields.classList.toggle('show', isDscrBridge);
 document.getElementById('is_rented').required = isDscrBridge;
@@ -797,6 +830,15 @@ document.getElementById('gross_rent').required = false;
 document.getElementById('market_rent').required = false;
 } else {
 updateRentFields();
+}
+}
+
+function toggleLandOwned(){
+const checked = document.getElementById('land_already_owned').checked;
+const priceField = document.getElementById('purchase_price');
+priceField.disabled = checked;
+if (checked) {
+priceField.value = '';
 }
 }
 function updateRentFields(){
@@ -847,14 +889,18 @@ const phone = document.getElementById('phone').value.trim();
 const loanType = document.getElementById('loan_type').value;
 const txnType = document.getElementById('transaction_type').value;
 const isFixFlip = loanType === 'Fix & Flip';
+const isNewConstruction = loanType === 'New Construction';
 const isDscrBridge = (loanType === 'DSCR' || loanType === 'Bridge');
-const isRefi = txnType === 'Refinance' && !isFixFlip;
+const isRefi = txnType === 'Refinance' && !isFixFlip && !isNewConstruction;
+const landAlreadyOwned = document.getElementById('land_already_owned').checked;
 
 if (!name || !email || !phone) { alert('Please fill in your name, email, and phone number.'); return; }
 if (!document.getElementById('property_type').value) { alert('Please select the property type.'); return; }
 if (!document.getElementById('property_state').value) { alert('Please select the property state.'); return; }
 if (!document.getElementById('zip_code').value.trim()) { alert('Please enter the property zip code.'); return; }
-if (!isRefi && !document.getElementById('purchase_price').value) { alert('Please enter the purchase price.'); return; }
+if (isNewConstruction) {
+if (!landAlreadyOwned && !document.getElementById('purchase_price').value) { alert('Please enter the land purchase amount, or check N/A if you already own the land.'); return; }
+} else if (!isRefi && !document.getElementById('purchase_price').value) { alert('Please enter the purchase price.'); return; }
 
 if (isDscrBridge) {
 const rented = document.getElementById('is_rented').value;
@@ -906,6 +952,7 @@ zip_code: document.getElementById('zip_code').value.trim(),
 loan_type: loanType,
 transaction_type: txnType,
 purchase_price: getRawMoney('purchase_price'),
+land_already_owned: landAlreadyOwned,
 rehab_budget: getRawMoney('rehab_budget'),
 arv: getRawMoney('arv'),
 original_purchase_date: document.getElementById('original_purchase_date').value,
