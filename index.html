@@ -439,7 +439,7 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <div class="field-grid triple" style="margin-top:16px;">
 <div class="field">
 <label>Property Type *</label>
-<select id="property_type" required>
+<select id="property_type" required onchange="updateDealFields();">
 <option value="">Select...</option>
 <option value="Single Family">Single Family</option>
 <option value="Multi-Family (2-4 units)">Multi-Family (2-4 units)</option>
@@ -512,6 +512,36 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <input type="text" id="zip_code" placeholder="12345" inputmode="numeric" maxlength="10" required>
 </div>
 </div>
+
+<div class="field-grid" style="margin-top:16px;">
+<div class="field">
+<label>Property Use *</label>
+<select id="property_use" required>
+<option value="">Select...</option>
+<option value="Investment Property">Investment Property (Non-Owner-Occupied)</option>
+<option value="Second Home">Second Home</option>
+<option value="Primary Residence">Primary Residence</option>
+</select>
+</div>
+<div class="field">
+<label>Flood Zone?</label>
+<select id="flood_zone">
+<option value="">Select...</option>
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+<option value="Unsure">Unsure</option>
+</select>
+</div>
+</div>
+
+<!-- HOA Dues — shown only for condo/townhome, multi-family, and mixed-use property types -->
+<div class="field-grid single conditional-field" id="hoaDuesRow" style="margin-top:16px;">
+<div class="field">
+<label>HOA Dues (Monthly)</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="hoa_dues" placeholder="350" oninput="formatMoney(this)"></div>
+</div>
+</div>
+
 <div class="field-grid" style="margin-top:16px;">
 <div class="field">
 <label>Loan Type Needed *</label>
@@ -530,6 +560,33 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <option value="">Select...</option>
 <option value="Purchase">Purchase</option>
 <option value="Refinance" id="refinanceOption">Refinance</option>
+</select>
+</div>
+</div>
+
+<div class="field-grid triple" style="margin-top:16px;">
+<div class="field">
+<label>Loan Amount Requested *</label>
+<div class="money-input"><span class="money-symbol">$</span><input type="text" id="loan_amount_requested" placeholder="300,000" oninput="formatMoney(this)"></div>
+</div>
+<div class="field">
+<label>Exit Strategy</label>
+<select id="exit_strategy">
+<option value="">Select...</option>
+<option value="Sell the Property">Sell the Property</option>
+<option value="Refinance to Long-Term Debt">Refinance to Long-Term Debt</option>
+<option value="Hold as Rental">Hold as Rental</option>
+<option value="Other">Other / Not Sure</option>
+</select>
+</div>
+<div class="field">
+<label>Occupancy at Closing</label>
+<select id="occupancy_at_closing">
+<option value="">Select...</option>
+<option value="Vacant">Vacant</option>
+<option value="Owner-Occupied">Owner-Occupied (Seller Lives There)</option>
+<option value="Tenant-Occupied">Tenant-Occupied (Existing Lease)</option>
+<option value="Other">Other</option>
 </select>
 </div>
 </div>
@@ -689,7 +746,7 @@ N/A — I already own the land
 </div>
 <div class="field">
 <label>Any bankruptcies, foreclosures, tax liens, or child support issues in the last 36 months?</label>
-<select id="derogatory">
+<select id="derogatory" onchange="toggleDerogatoryTiming();">
 <option value="">Select...</option>
 <option value="No">No</option>
 <option value="Yes">Yes</option>
@@ -706,6 +763,21 @@ N/A — I already own the land
 </select>
 </div>
 </div>
+
+<!-- Shown only if derogatory marks were reported above, so we know how seasoned the issue is -->
+<div class="field-grid single conditional-field" id="derogatoryTimingRow" style="margin-top:16px;">
+<div class="field">
+<label>When did this occur? *</label>
+<select id="derogatory_timing">
+<option value="">Select...</option>
+<option value="Less than 12 months ago">Less than 12 months ago</option>
+<option value="12-24 months ago">12-24 months ago</option>
+<option value="2-4 years ago">2-4 years ago</option>
+<option value="4+ years ago / Not sure">4+ years ago / Not sure</option>
+</select>
+</div>
+</div>
+
 <div class="field-grid single conditional-field" id="newConstructionField" style="margin-top:16px;">
 <div class="field">
 <label>New Construction Only — How many successful ground-up projects have you completed in the last 48 months?</label>
@@ -778,6 +850,11 @@ if (val === 'New Construction') ncField.classList.add('show');
 else ncField.classList.remove('show');
 }
 function updateDealFields(){
+const propertyType = document.getElementById('property_type').value;
+const hoaApplicable = ['Condo/Townhome', 'Multi-Family (2-4 units)', 'Multi-Family (5+ units)', 'Mixed-Use'].includes(propertyType);
+document.getElementById('hoaDuesRow').classList.toggle('show', hoaApplicable);
+if (!hoaApplicable) { document.getElementById('hoa_dues').value = ''; }
+
 const loanType = document.getElementById('loan_type').value;
 const isNewConstruction = loanType === 'New Construction';
 
@@ -841,6 +918,16 @@ if (checked) {
 priceField.value = '';
 }
 }
+
+function toggleDerogatoryTiming(){
+const val = document.getElementById('derogatory').value;
+const show = (val === 'Yes' || val === 'Prefer to discuss');
+const row = document.getElementById('derogatoryTimingRow');
+const timingField = document.getElementById('derogatory_timing');
+row.classList.toggle('show', show);
+timingField.required = show;
+if (!show) { timingField.value = ''; }
+}
 function updateRentFields(){
 const rented = document.getElementById('is_rented').value;
 const grossField = document.getElementById('grossRentField');
@@ -898,6 +985,8 @@ if (!name || !email || !phone) { alert('Please fill in your name, email, and pho
 if (!document.getElementById('property_type').value) { alert('Please select the property type.'); return; }
 if (!document.getElementById('property_state').value) { alert('Please select the property state.'); return; }
 if (!document.getElementById('zip_code').value.trim()) { alert('Please enter the property zip code.'); return; }
+if (!document.getElementById('property_use').value) { alert('Please select how the property will be used.'); return; }
+if (!document.getElementById('loan_amount_requested').value) { alert('Please enter the loan amount you are requesting.'); return; }
 if (isNewConstruction) {
 if (!landAlreadyOwned && !document.getElementById('purchase_price').value) { alert('Please enter the land purchase amount, or check N/A if you already own the land.'); return; }
 } else if (!isRefi && !document.getElementById('purchase_price').value) { alert('Please enter the purchase price.'); return; }
@@ -913,6 +1002,8 @@ if (!document.getElementById('experience').value) { alert('Please select the num
 if (!document.getElementById('credit_score').value) { alert('Please select your estimated credit score.'); return; }
 if (!document.getElementById('owns_primary').value) { alert('Please let us know if you own your primary residence.'); return; }
 if (!document.getElementById('citizenship_status').value) { alert('Please select your citizenship status.'); return; }
+const derogVal = document.getElementById('derogatory').value;
+if ((derogVal === 'Yes' || derogVal === 'Prefer to discuss') && !document.getElementById('derogatory_timing').value) { alert('Please let us know approximately when that occurred.'); return; }
 if (!document.getElementById('consent').checked) { alert('Please agree to be contacted to submit your deal.'); return; }
 
 const btn = document.getElementById('submitBtn');
@@ -949,8 +1040,14 @@ property_address: document.getElementById('property_address').value,
 property_type: document.getElementById('property_type').value,
 state: document.getElementById('property_state').value,
 zip_code: document.getElementById('zip_code').value.trim(),
+property_use: document.getElementById('property_use').value,
+flood_zone: document.getElementById('flood_zone').value,
+hoa_dues: getRawMoney('hoa_dues'),
 loan_type: loanType,
 transaction_type: txnType,
+loan_amount_requested: getRawMoney('loan_amount_requested'),
+exit_strategy: document.getElementById('exit_strategy').value,
+occupancy_at_closing: document.getElementById('occupancy_at_closing').value,
 purchase_price: getRawMoney('purchase_price'),
 land_already_owned: landAlreadyOwned,
 rehab_budget: getRawMoney('rehab_budget'),
@@ -973,6 +1070,7 @@ liquid_funds: document.getElementById('liquid_funds').value,
 entity_type: document.getElementById('entity_type').value,
 owns_primary: document.getElementById('owns_primary').value,
 derogatory: document.getElementById('derogatory').value,
+derogatory_timing: document.getElementById('derogatory_timing').value,
 citizenship_status: document.getElementById('citizenship_status').value,
 construction_experience: document.getElementById('construction_experience').value,
 message: document.getElementById('message').value,
