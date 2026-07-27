@@ -948,6 +948,10 @@ document.getElementById('noi_annual').value = '';
 document.getElementById('gross_rent_roll').value = '';
 }
 
+// Fix & Flip / New Construction: Exit Strategy simplifies down to Sell or BRRRR (Hold) — the
+// Refinance/Other options don't apply to a flip or build-and-sell/hold decision.
+updateExitStrategyOptions(isFixFlip || isNewConstruction);
+
 // Occupancy: income properties (5+ unit multifamily, commercial, retail, mobile home/RV park) get a
 // occupancy % field instead of the single-unit Occupancy at Closing selector, regardless of loan type.
 // For Fix & Flip / New Construction on non-income property types, Occupancy at Closing only matters
@@ -969,6 +973,24 @@ document.getElementById('occupancy_pct').value = '';
 const hideForFlipOrNC = (isFixFlip || isNewConstruction) && !isHoldRental;
 occupancyAtClosingField.classList.toggle('show', !hideForFlipOrNC);
 if (hideForFlipOrNC) { document.getElementById('occupancy_at_closing').value = ''; }
+}
+}
+
+function updateExitStrategyOptions(simplified){
+const select = document.getElementById('exit_strategy');
+const currentValue = select.value;
+if (simplified) {
+select.innerHTML = '<option value="">Select...</option>' +
+'<option value="Sell the Property">Sell</option>' +
+'<option value="Hold as Rental">BRRRR (Hold)</option>';
+select.value = (currentValue === 'Sell the Property' || currentValue === 'Hold as Rental') ? currentValue : '';
+} else {
+select.innerHTML = '<option value="">Select...</option>' +
+'<option value="Sell the Property">Sell the Property</option>' +
+'<option value="Refinance to Long-Term Debt">Refinance to Long-Term Debt</option>' +
+'<option value="Hold as Rental">Hold as Rental</option>' +
+'<option value="Other">Other / Not Sure</option>';
+select.value = currentValue;
 }
 }
 
