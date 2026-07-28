@@ -452,7 +452,6 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <option value="Commercial">Commercial</option>
 <option value="Retail">Retail</option>
 <option value="Mobile Home / RV Park">Mobile Home / RV Park</option>
-<option value="Land">Land</option>
 </select>
 </div>
 <div class="field">
@@ -548,6 +547,11 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <label>HOA Dues (Monthly)</label>
 <div class="money-input"><span class="money-symbol">$</span><input type="text" id="hoa_dues" placeholder="350" oninput="formatMoney(this)"></div>
 </div>
+</div>
+
+<!-- Number of Units — shown for any property type other than Single Family, unless the loan type is New Construction -->
+<div class="field-grid single conditional-field" id="numberOfUnitsRow" style="margin-top:16px;">
+<div class="field"><label>Number of Units</label><input type="text" id="number_of_units" placeholder="4" inputmode="numeric"></div>
 </div>
 
 <div class="field-grid" style="margin-top:16px;">
@@ -893,6 +897,10 @@ if (!hoaApplicable) { document.getElementById('hoa_dues').value = ''; }
 const loanType = document.getElementById('loan_type').value;
 const isNewConstruction = loanType === 'New Construction';
 
+const unitsApplicable = !!propertyType && propertyType !== 'Single Family' && !isNewConstruction;
+document.getElementById('numberOfUnitsRow').classList.toggle('show', unitsApplicable);
+if (!unitsApplicable) { document.getElementById('number_of_units').value = ''; }
+
 // New Construction is never a refinance — disable that option and clear it if it was selected.
 const refiOption = document.getElementById('refinanceOption');
 const transactionTypeSelect = document.getElementById('transaction_type');
@@ -1133,6 +1141,7 @@ zip_code: document.getElementById('zip_code').value.trim(),
 property_use: document.getElementById('property_use').value,
 flood_zone: document.getElementById('flood_zone').value,
 hoa_dues: getRawMoney('hoa_dues'),
+number_of_units: document.getElementById('number_of_units').value.trim(),
 loan_type: loanType,
 transaction_type: txnType,
 loan_amount_requested: getRawMoney('loan_amount_requested'),
