@@ -559,11 +559,10 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <label>Loan Type Needed *</label>
 <select id="loan_type" required onchange="toggleNewConstruction(); updateDealFields();">
 <option value="">Select...</option>
-<option value="Fix & Flip">Fix and Flip</option>
+<option value="Fix & Flip" id="fixFlipLoanOption">Fix and Flip</option>
 <option value="DSCR">DSCR</option>
 <option value="Bridge">Bridge</option>
 <option value="New Construction">New Construction</option>
-<option value="Commercial">Commercial</option>
 <option value="Not Sure">Not Sure</option>
 </select>
 </div>
@@ -587,8 +586,7 @@ Daniel Touchatt — Capital Advisor, Maple and Millwood Consultants
 <select id="exit_strategy" onchange="updateDealFields();">
 <option value="">Select...</option>
 <option value="Sell the Property">Sell the Property</option>
-<option value="Refinance to Long-Term Debt">Refinance to Long-Term Debt</option>
-<option value="Hold as Rental">Hold as Rental</option>
+<option value="Hold as Rental">Long Term Hold</option>
 <option value="Other">Other / Not Sure</option>
 </select>
 </div>
@@ -892,6 +890,14 @@ const hoaApplicable = ['Condo/Townhome', 'Multi-Family (2-4 units)', 'Multi-Fami
 document.getElementById('hoaDuesRow').classList.toggle('show', hoaApplicable);
 if (!hoaApplicable) { document.getElementById('hoa_dues').value = ''; }
 
+// Fix & Flip is only offered for Single Family, Multi-Family (2-4 units), and Condo/Townhome.
+const fixFlipEligible = ['Single Family', 'Multi-Family (2-4 units)', 'Condo/Townhome'].includes(propertyType);
+const fixFlipLoanOption = document.getElementById('fixFlipLoanOption');
+fixFlipLoanOption.disabled = !fixFlipEligible;
+if (!fixFlipEligible && document.getElementById('loan_type').value === 'Fix & Flip') {
+document.getElementById('loan_type').value = '';
+}
+
 const loanType = document.getElementById('loan_type').value;
 const isNewConstruction = loanType === 'New Construction';
 
@@ -950,8 +956,8 @@ document.getElementById('market_rent').required = false;
 updateRentFields();
 }
 
-// Commercial loan type only: NOI / rent roll fields
-const isCommercial = loanType === 'Commercial';
+// Commercial property type only: NOI / rent roll fields
+const isCommercial = propertyType === 'Commercial';
 document.getElementById('commercialFields').classList.toggle('show', isCommercial);
 if (!isCommercial) {
 document.getElementById('noi_annual').value = '';
@@ -997,8 +1003,7 @@ select.value = (currentValue === 'Sell the Property' || currentValue === 'Hold a
 } else {
 select.innerHTML = '<option value="">Select...</option>' +
 '<option value="Sell the Property">Sell the Property</option>' +
-'<option value="Refinance to Long-Term Debt">Refinance to Long-Term Debt</option>' +
-'<option value="Hold as Rental">Hold as Rental</option>' +
+'<option value="Hold as Rental">Long Term Hold</option>' +
 '<option value="Other">Other / Not Sure</option>';
 select.value = currentValue;
 }
