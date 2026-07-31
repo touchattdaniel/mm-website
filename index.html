@@ -1017,7 +1017,15 @@ priceField.value = '';
 }
 }
 
-function toggleDerogatoryTiming(){
+function getSourceValue(){
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source');
+    const utmCampaign = params.get('utm_campaign');
+    if (utmSource) { return utmCampaign ? (utmSource + ' / ' + utmCampaign) : utmSource; }
+    return 'Daniel Touchatt Personal Site';
+}
+  
+  function toggleDerogatoryTiming(){
 const val = document.getElementById('derogatory').value;
 const show = (val === 'Yes' || val === 'Prefer to discuss');
 const row = document.getElementById('derogatoryTimingRow');
@@ -1180,7 +1188,7 @@ consent: true,
 consent_timestamp: new Date().toISOString(),
 contract_file_name,
 contract_file_base64,
-source: 'Daniel Touchatt Personal Site'
+source: getSourceValue()
 };
 
 try {
