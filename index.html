@@ -1088,6 +1088,7 @@ const isRefi = txnType === 'Refinance' && !isFixFlip && !isNewConstruction;
 const landAlreadyOwned = document.getElementById('land_already_owned').checked;
 
 if (!name || !email || !phone) { alert('Please fill in your name, email, and phone number.'); return; }
+  if (!document.getElementById('property_address').value.trim()) { alert('Please enter the property address.'); return; }
 if (!document.getElementById('property_type').value) { alert('Please select the property type.'); return; }
 if (!document.getElementById('property_state').value) { alert('Please select the property state.'); return; }
 if (!document.getElementById('city').value.trim()) { alert('Please enter the property city.'); return; }
